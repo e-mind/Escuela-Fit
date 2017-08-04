@@ -1,0 +1,46 @@
+{% extends "../base.html" %}
+
+{% block title %}Reporte{% endblock title %}
+
+{% block nav_alumnos %}active{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li class="active">Alumnos</li>
+    </ul>
+{% endblock breadcrumb %}
+
+{% block content %}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="text-center"><p>#</p></th>
+                <th class="text-center"><p>Boleta</p></th>
+                <th class="text-center"><p>Nombre</p></th>
+                <th class="text-center">Estatura<br />(m)</th>
+                <th class="text-center">Peso<br />(kg)</th>
+                <th class="text-center">Circunferencia de la cintura<br />(cm)</th>
+                <th class="text-center">Frecuencia cardiaca en reposo<br />(latidos / minuto)</th>
+                <th class="text-center">Presión arterial<br />(mm Hg)</th>
+                <th class="text-center info"><p>Acciones</p></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alumno in object_list %}
+                <tr>
+                    <td class="text-center">{{ forloop.counter }}</td>
+                    <td class="text-center"><a href="{% url 'alumnos:detail' alumno.id %}">{{ alumno.boleta }}</a></td>
+                    <td class="text-center">{{ alumno.nombre|title }} {{ alumno.apellido_paterno|title }} {{ alumno.apellido_materno|title }}</td>
+                    <td class="text-center">{{ alumno.estatura }}</td>
+                    <td class="text-center">{{ alumno.peso }}</td>
+                    <td class="text-center">{{ alumno.circunferencia_cintura }}</td>
+                    <td class="text-center">{{ alumno.frecuencia_reposo }}</td>
+                    <td class="text-center">{{ alumno.presion_arterial }}</td>
+                    <td class="text-center"><a href="{% url 'alumnos:update' alumno.id %}">Cambiar</a> <a href="{% url 'alumnos:delete' alumno.id %}">Borrar</a></td>
+                </tr>
+            {% empty %}
+                <tr class="active text-center lead"><td colspan="16">No hay datos.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+{% endblock content %}
