@@ -7,7 +7,6 @@
     <style>
         .wrapper{
             width: 100%;
-            height: 100vh;
         }
         #chart-container {
             position: relative;
@@ -16,6 +15,8 @@
         }
     </style>
 {% endblock css %}
+
+{% block nav_pase_lista %}class="active"{% endblock nav_pase_lista %}
 
 {% block content %}
     <div class="wrapper">
@@ -34,11 +35,19 @@
             url: '{% url 'pase_lista:json_data' %}',
             type: 'GET',
             data: {},
-            success: function(json_data) {
+            success: function(data_response) {
                 var ctx = document.getElementById('myChart').getContext('2d');
                 var chart = new Chart(ctx, {
                     type: 'line',
-                    data: json_data,
+                    data: {
+                        'labels': ["January", "February", "March", "April", "May", "June", "July"],
+                        'datasets': [{
+                            'label': "My First dataset",
+                            'backgroundColor': 'rgba(255, 99, 132, 0.2)',
+                            'borderColor': 'rgb(255, 99, 132)',
+                            'data': data_response,
+                        }]
+                    },
                     options: {
                         responsive: true, 
                     }

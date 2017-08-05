@@ -7,6 +7,14 @@ class AlumnoModelForm(forms.ModelForm):
         model = Alumno
         fields = '__all__'
 
+        labels = {
+            'estatura': 'Estatura (m)',
+            'peso': 'Peso (kg)',
+            'circunferencia_cintura': 'Circunferencia de la cintura (cm)',
+            'frecuencia_reposo': 'Frecuencia cardiaca en reposo (latidos/minuto)',
+            'presion_arterial': 'Presion arterial (mm Hg)',
+        }
+
         widgets = {
             'boleta': forms.TextInput(attrs={'class': 'form-control'}),
             'carrera': forms.Select(attrs={'class': 'form-control'}),
@@ -15,8 +23,8 @@ class AlumnoModelForm(forms.ModelForm):
             'apellido_paterno': forms.TextInput(attrs={'class': 'form-control'}),
             'apellido_materno': forms.TextInput(attrs={'class': 'form-control'}),
             'edad': forms.NumberInput(attrs={'class': 'form-control'}),
-            'fecha_nacimiento': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'telefono': forms.TextInput(attrs={'class': 'form-control'}),
+            'fecha_nacimiento': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'dd/mm/aaaa'}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '5512345678'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'estatura': forms.TextInput(attrs={'class': 'form-control'}),
             'peso': forms.TextInput(attrs={'class': 'form-control'}),
