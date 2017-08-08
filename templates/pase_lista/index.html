@@ -54,18 +54,5 @@
                 });
             }
         });
-
-        function ajax_request(){
-            $.ajax({
-                url: '{% url 'pase_lista:asistencia' %}',
-                type: 'GET',
-                data: {},
-                success: function(data_response) {
-                    $(".wrapper").append('<p>'+data_response+'</p>');
-                }
-            });
-        }        
-
-        setInterval(ajax_request, 1000);
     </script>
 {% endblock javascript %}
