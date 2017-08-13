@@ -1,43 +1,38 @@
 {% extends "../base.html" %}
 
-{% block title %}Info | {{ alumno.nombre|title }} {{ alumno.apellido_paterno|title }} {{ alumno.apellido_materno|title }}{% endblock title %}
+{% block title %}Info | {{ object.nombre|title }} {{ object.apellido_paterno|title }} {{ object.apellido_materno|title }}{% endblock title %}
 
 {% block nav_alumnos %}active{% endblock %}
 
 {% block breadcrumb %}
     <ul class="breadcrumb">
         <li><a href="{% url 'alumnos:list' %}">Alumnos</a></li>
-        <li class="active">{{ alumno.nombre|title }} {{ alumno.apellido_paterno|title }} {{ alumno.apellido_materno|title }}</li>
+        <li class="active">{{ object.nombre|title }} {{ object.apellido_paterno|title }} {{ object.apellido_materno|title }}</li>
     </ul>
 {% endblock breadcrumb %}
 
 {% block content %}
     <div class="jumbotron row">
-        <h1 class="text-center">{{ alumno.nombre|title }} {{ alumno.apellido_paterno|title }} {{ alumno.apellido_materno|title }}</h1>
+        <h1 class="text-center">{{ object.nombre|title }} {{ object.apellido_paterno|title }} {{ object.apellido_materno|title }}</h1>
         <br /><br />
         <div class="col-xs-10 col-xs-offset-1 col-sm-12 col-md-10 col-md-offset-1">
-            <p class="col-sm-6"><b>Boleta:</b></p><p class="col-sm-6">{{ alumno.boleta }}</p>
-            <p class="col-sm-6"><b>Carrera:</b></p><p class="col-sm-6">{{ alumno.get_carrera_display }}</p>
-            <p class="col-sm-6"><b>Semestre:</b></p><p class="col-sm-6">{{ alumno.semestre }}</p>
-            <p class="col-sm-6"><b>Nombre:</b></p><p class="col-sm-6">{{ alumno.nombre|title }}</p>
-            <p class="col-sm-6"><b>Apellido Paterno:</b></p><p class="col-sm-6">{{ alumno.apellido_paterno|title }}</p>
-            <p class="col-sm-6"><b>Apellido Materno:</b></p><p class="col-sm-6">{{ alumno.apellido_materno|title }}</p>
-            <p class="col-sm-6"><b>Edad:</b></p><p class="col-sm-6">{{ alumno.edad }}</p>
-            <p class="col-sm-6"><b>Fecha de nacimiento:</b></p><p class="col-sm-6">{{ alumno.fecha_nacimiento }}</p>
-            <p class="col-sm-6"><b>Teléfono:</b></p><p class="col-sm-6">{{ alumno.telefono }}</p>
-            <p class="col-sm-6"><b>Email:</b></p><p class="col-sm-6">{{ alumno.email }}</p>
-            <p class="col-sm-6"><b>Estatura:</b></p><p class="col-sm-6">{{ alumno.estatura }} m</p>
-            <p class="col-sm-6"><b>Peso:</b></p><p class="col-sm-6">{{ alumno.peso }} kg</p>
-            <p class="col-sm-6"><b>Circunferencia de la cintura:</b></p><p class="col-sm-6">{{ alumno.circunferencia_cintura }} cm</p>
-            <div class="clearfix visible-sm visible-md visible-lg"></div>
-            <p class="col-sm-6"><b>Frecuencia cardiaca en reposo:</b></p><p class="col-sm-6">{{ alumno.frecuencia_reposo }} latidos / minuto</p>
-            <div class="clearfix visible-sm visible-md visible-lg"></div>
-            <p class="col-sm-6"><b>Presión arterial:</b></p><p class="col-sm-6">{{ alumno.presion_arterial }} mm Hg</p>
+            <p class="col-sm-6"><b>Boleta:</b></p><p class="col-sm-6">{{ object.boleta }}</p>
+            <p class="col-sm-6"><b>Carrera:</b></p><p class="col-sm-6">{{ object.get_carrera_display }}</p>
+            <p class="col-sm-6"><b>Semestre:</b></p><p class="col-sm-6">{{ object.semestre }}</p>
+            <p class="col-sm-6"><b>Nombre:</b></p><p class="col-sm-6">{{ object.nombre|title }}</p>
+            <p class="col-sm-6"><b>Apellido Paterno:</b></p><p class="col-sm-6">{{ object.apellido_paterno|title }}</p>
+            <p class="col-sm-6"><b>Apellido Materno:</b></p><p class="col-sm-6">{{ object.apellido_materno|title }}</p>
+            <p class="col-sm-6"><b>Edad:</b></p><p class="col-sm-6">{{ object.edad }}</p>
+            <p class="col-sm-6"><b>Fecha de nacimiento:</b></p><p class="col-sm-6">{{ object.fecha_nacimiento }}</p>
+            <p class="col-sm-6"><b>Teléfono:</b></p><p class="col-sm-6">{{ object.telefono }}</p>
+            <p class="col-sm-6"><b>Email:</b></p><p class="col-sm-6">{{ object.email }}</p>
+            <p class="col-sm-6"><b>Código Tarjeta:</b></p><p class="col-sm-6">{{ object.codigo_tarjeta }}</p>
             <div class="clearfix visible-sm visible-md visible-lg"></div>
         </div>
         <br /><br />
         <div class="col-xs-12 text-center">
             <a href="{% url 'alumnos:list' %}" class="btn btn-primary">Regresar</a>
+            <a href="{% url 'alumnos:update' object.id %}" class="btn btn-success">Modificar</a>
         </div>
     </div>
 {% endblock content %}

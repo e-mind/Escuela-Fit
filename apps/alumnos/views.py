@@ -4,30 +4,30 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from .models import Alumno
-from .forms import AlumnoModelForm
+from .models import AlumnoDatosPersonales, AlumnoDatosFisicos
+from .forms import AlumnoDatosPersonalesForm, AlumnoDatosFisicosForm
 
 
 class AlumnoCreate(CreateView):
     template_name = 'alumnos/form.html'
-    form_class = AlumnoModelForm
+    form_class = AlumnoDatosPersonalesForm
     success_url = reverse_lazy('alumnos:list')
 
 class AlumnoUpdate(UpdateView):
-    model = Alumno
+    model = AlumnoDatosPersonales
     template_name = 'alumnos/form.html'
-    form_class = AlumnoModelForm
+    form_class = AlumnoDatosPersonalesForm
     success_url = reverse_lazy('alumnos:list')
 
 class AlumnoList(ListView):
-    model = Alumno
+    model = AlumnoDatosPersonales
     template_name = 'alumnos/list.html'
 
 class AlumnoDetail(DetailView):
-    model = Alumno
+    model = AlumnoDatosPersonales
     template_name = 'alumnos/detail.html'
 
 class AlumnoDelete(DeleteView):
-    model = Alumno
+    model = AlumnoDatosPersonales
     template_name = 'alumnos/delete.html'
     success_url = reverse_lazy('alumnos:list')

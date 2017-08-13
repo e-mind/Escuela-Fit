@@ -15,7 +15,7 @@
     <form action="" method="post" class="form-horizontal">
         <fieldset>
             {% csrf_token %}
-            <h1 class="text-center">¿Seguro que desea eliminar a {{ alumno.nombre|title }} {{ alumno.apellido_paterno|title }} {{ alumno.apellido_materno|title }}?</h1>
+            <h1 class="text-center">¿Seguro que desea eliminar a {{ object.nombre|title }} {{ object.apellido_paterno|title }} {{ object.apellido_materno|title }}?</h1>
             <br />
             <div class="text-center">
                 <a href="{% url 'alumnos:list' %}" class="btn btn-primary">Cancelar</a>
