@@ -1,58 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block title %}Gráfica{% endblock title %}
-
-{% block css %}
-    <style>
-        .wrapper{
-            width: 100%;
-        }
-        #chart-container {
-            position: relative;
-            width: 80%;
-            margin: auto;
-        }
-    </style>
-{% endblock css %}
+{% block title %}Index Pase_Lista{% endblock title %}
 
 {% block nav_pase_lista %}class="active"{% endblock nav_pase_lista %}
 
 {% block content %}
-    <div class="wrapper">
-        <div id="chart-container">
-            <canvas id="myChart"></canvas>
-        </div>
-    </div>
-    {% csrf_token %}
+    <h1>Index Pase Lista</h1>
 {% endblock content %}
-
-{% block javascript %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <script src="{% static 'js/django_ajax.js' %}"></script>
-    <script>
-        $.ajax({
-            url: '{% url 'pase_lista:json_data' %}',
-            type: 'GET',
-            data: {},
-            success: function(data_response) {
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var chart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        'labels': ["January", "February", "March", "April", "May", "June", "July"],
-                        'datasets': [{
-                            'label': "My First dataset",
-                            'backgroundColor': 'rgba(255, 99, 132, 0.2)',
-                            'borderColor': 'rgb(255, 99, 132)',
-                            'data': data_response,
-                        }]
-                    },
-                    options: {
-                        responsive: true, 
-                    }
-                });
-            }
-        });
-    </script>
-{% endblock javascript %}

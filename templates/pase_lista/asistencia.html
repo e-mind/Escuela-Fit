@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block title %}Asistencia{% endblock title %}
+{% block title %}Gráfica{% endblock title %}
 
 {% block css %}
     <style>
         .wrapper{
             width: 100%;
+        }
+        #chart-container {
+            position: relative;
+            width: 80%;
+            margin: auto;
         }
     </style>
 {% endblock css %}
@@ -14,20 +19,37 @@
 {% block nav_pase_lista %}class="active"{% endblock nav_pase_lista %}
 
 {% block content %}
-    <div class="wrapper"></div>
+    <div class="wrapper">
+        <div id="chart-container">
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
 {% endblock content %}
 
 {% block javascript %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script>
-        var ajax_request = $.ajax({
-            url: '{% url 'pase_lista:asistencia' %}',
-            type: 'GET',
-            data: {},
-            success: function(data_response) {
-                $('.wrapper').append(data_response);
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {{ data_response|safe }},
+            options: {
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                } 
             }
         });
-
-        setInterval(ajax_request, 1000);
     </script>
 {% endblock javascript %}

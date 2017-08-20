@@ -11,6 +11,16 @@
 {% endblock breadcrumb %}
 
 {% block content %}
+    <h4>Filtrar por:</h4>
+        <form method="get">
+            <p>
+                Boleta: &nbsp {{ filter.form.boleta }} &nbsp
+                Nombre: &nbsp {{ filter.form.nombre }} &nbsp
+                Apellido Paterno: &nbsp {{ filter.form.apellido_paterno }} &nbsp
+                Apellido Materno: &nbsp {{ filter.form.apellido_materno }} &nbsp;&nbsp;
+                <button class="btn btn-success" type="submit">Filtrar</button>
+            </p>
+        </form>
     <table class="table table-striped table-hover">
         <thead>
             <tr>
@@ -26,21 +36,36 @@
             </tr>
         </thead>
         <tbody>
-            {% for alumno in object_list %}
+            {% for alumno in alumnos %}
                 <tr>
                     <td class="text-center">{{ forloop.counter }}</td>
-                    <td class="text-center"><a href="{% url 'alumnos:detail' alumno.id %}">{{ alumno.boleta }}</a></td>
+                    <td class="text-center"><a href="{% url 'alumnos:detail' alumno.id %}" class="btn btn-success btn-xs" title="Ver alumno">{{ alumno.boleta }}</a></td>
                     <td class="text-center">{{ alumno.nombre|title }} {{ alumno.apellido_paterno|title }} {{ alumno.apellido_materno|title }}</td>
                     <td class="text-center">{{ alumno.estatura }}</td>
                     <td class="text-center">{{ alumno.peso }}</td>
                     <td class="text-center">{{ alumno.circunferencia_cintura }}</td>
                     <td class="text-center">{{ alumno.frecuencia_reposo }}</td>
                     <td class="text-center">{{ alumno.presion_arterial }}</td>
-                    <td class="text-center"><a href="{% url 'alumnos:update' alumno.id %}">Cambiar</a> <a href="{% url 'alumnos:delete' alumno.id %}">Borrar</a></td>
+                    <td class="text-center">
+                        <a href="{% url 'alumnos:update' alumno.id %}" title="Editar">
+                            <i class="icon-edit color-blue fs-15"></i>
+                        </a>
+                        <a href="{% url 'alumnos:delete' alumno.id %}" title="Borrar">
+                            <i class="icon-delete color-red fs-15"></i>
+                        </a>
+                    </td>
                 </tr>
             {% empty %}
                 <tr class="active text-center lead"><td colspan="16">No hay datos.</td></tr>
             {% endfor %}
         </tbody>
     </table> 
+    <ul class="pager">
+        {% if alumnos.has_previous %}
+            <li><a href="?page={{ alumnos.previous_page_number }}">&larr; Anterior</a></li>
+        {% endif %}
+        {% if alumnos.has_next %}
+            <li><a href="?page={{ alumnos.next_page_number }}">Siguiente &rarr;</a></li>
+        {% endif %}
+    </ul>
 {% endblock content %}

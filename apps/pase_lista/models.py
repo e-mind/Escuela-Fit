@@ -8,6 +8,9 @@ class Asistencia(models.Model):
     fecha = models.DateField(auto_now_add=True)
     hora = models.TimeField(auto_now_add=True)
 
+    def __str__(self):
+        return "{} {}".format(self.fecha, self.hora)
+
     class Meta:
-        ordering = ['fecha']
+        ordering = ['-fecha']
         

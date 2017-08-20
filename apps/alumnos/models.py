@@ -33,8 +33,12 @@ class AlumnoDatosPersonales(models.Model):
     email = models.EmailField("Email", max_length=80)
     codigo_tarjeta = models.CharField("Código Tarjeta", max_length=11)
 
+    def __str__(self):
+        return "{} {} {}".format(self.nombre, self.apellido_paterno, self.apellido_materno)
+
     class Meta:
         ordering = ['apellido_paterno']
+        verbose_name_plural = 'Datos Personales'
 
 
 class AlumnoDatosFisicos(models.Model):
@@ -46,5 +50,9 @@ class AlumnoDatosFisicos(models.Model):
     presion_arterial = models.CharField("Presión arterial", max_length=7, blank=True, null=True)
     fecha = models.DateField(auto_now_add=True)
 
+    def __str__(self):
+        return "{} {}".format(self.alumno, self.fecha)
+
     class Meta:
         ordering = ['fecha']
+        verbose_name_plural = 'Datos Físicos'
