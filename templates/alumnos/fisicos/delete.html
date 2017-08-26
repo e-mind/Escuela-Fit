@@ -1,0 +1,27 @@
+{% extends "../../base.html" %}
+
+{% block title %}Confirmación{% endblock title %}
+
+{% block nav_alumnos %}active{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'alumnos:list' %}">Alumnos</a></li>
+        <li><a href="{% url 'alumnos:list_fisicos' %}">Datos Físicos</a></li>
+        <li class="active">Eliminar</li>
+    </ul>
+{% endblock breadcrumb %}
+
+{% block content %}
+    <form action="" method="post" class="form-horizontal">
+        <fieldset>
+            {% csrf_token %}
+            <h1 class="text-center">¿Seguro que desea eliminar el registro datos físicos del {{ object.fecha }} de {{ object.alumno|title }}?</h1>
+            <br />
+            <div class="text-center">
+                <a href="{% url 'alumnos:list_fisicos' %}" class="btn btn-primary">Cancelar</a>
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+            </div>
+        </fieldset>
+    </form>
+{% endblock content %}

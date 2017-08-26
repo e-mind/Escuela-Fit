@@ -53,8 +53,8 @@ class AlumnoDatosPersonalesForm(forms.ModelForm):
 
         if len(codigo_tarjeta) < 8:
             raise forms.ValidationError("El código debe ser de 8 caracteres")
-        
-        codigo_tarjeta = codigo_tarjeta[:2] + " " + codigo_tarjeta[2:4] + " " + codigo_tarjeta[4:6] + " " + codigo_tarjeta[6:] 
+
+        codigo_tarjeta = codigo_tarjeta[:2] + " " + codigo_tarjeta[2:4] + " " + codigo_tarjeta[4:6] + " " + codigo_tarjeta[6:]
         codigo_tarjeta = codigo_tarjeta.upper()
 
         return codigo_tarjeta
@@ -74,9 +74,10 @@ class AlumnoDatosFisicosForm(forms.ModelForm):
         }
 
         widgets = {
+            'alumno': forms.Select(attrs={'class': 'form-control'}),
             'estatura': forms.TextInput(attrs={'class': 'form-control'}),
             'peso': forms.TextInput(attrs={'class': 'form-control'}),
             'circunferencia_cintura': forms.TextInput(attrs={'class': 'form-control'}),
             'frecuencia_reposo': forms.TextInput(attrs={'class': 'form-control'}),
-            'presion_arterial': forms.TextInput(attrs={'class': 'form-control'}),
+            'presion_arterial': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej. 120/80'}),
         }

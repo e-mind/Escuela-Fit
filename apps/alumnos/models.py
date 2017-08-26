@@ -54,5 +54,5 @@ class AlumnoDatosFisicos(models.Model):
         return "{} {}".format(self.alumno, self.fecha)
 
     class Meta:
-        ordering = ['fecha']
+        ordering = ['-fecha']
         verbose_name_plural = 'Datos Físicos'

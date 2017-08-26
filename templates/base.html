@@ -32,9 +32,13 @@
                             <li class="dropdown {% block nav_alumnos %}{% endblock %}">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Alumnos <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{% url 'alumnos:create' %}">Agregar</a></li>
-                                    <li class="divider"></li>
+                                    <li><b>&nbsp;&nbsp;Datos Personales</b></li>
+                                    <li><a href="{% url 'alumnos:create' %}">Nuevo</a></li>
                                     <li><a href="{% url 'alumnos:list' %}">Reporte</a></li>
+                                    <li class="divider"></li>
+                                    <li><b>&nbsp;&nbsp;Datos Físicos</b></li>
+                                    <li><a href="{% url 'alumnos:create_fisicos' %}">Agregar</a></li>
+                                    <li><a href="{% url 'alumnos:list_fisicos' %}">Reporte</a></li>
                                 </ul>
                             </li>
                         </ul>
