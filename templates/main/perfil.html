@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="electivas upiicsa">
+	<meta name="keywords" content=" upiicsa, ejercicios, electivas, ipn ">
+
+    <title>Escuela Fit</title>
+    <link rel="icon" href="img/icono.png">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Teko" rel="stylesheet">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/creative.min.css" rel="stylesheet">
+    <!-- Canvas JavaScript´s -->
+    <script type="text/javascript" src="js/graficas/jquery-3.2.1.min"></script>
+    <script src="js/graficas/dist/Chart.bundle.js"></script>
+    <script src="js/graficas/utils.js"></script>
+    <!-- Canvas CSS -->
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+        .chart-container {
+            width: 500px;
+            margin-left: 40px;
+            margin-right: 40px;
+            margin-bottom: 40px;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Menú <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="./index.html"> <img src="img/Logo.png" width="200" height="30"> </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" href="./index.html">INICIO</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#asistencia">ASISTENCIA</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#registros">MIS REGISTROS</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="./rutina.html">RUTINAS</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="./nutricion.html">NUTRICIÓN</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="./ca.html">CALIDAD DEL AIRE</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">CONTACTO</a>
+                    </li>
+                    <li> 
+                        <a href="./iniciars.html">
+                        <span class="fa fa-power-off fa-2x text-primary sr-icons" style="margin-right: 10px;" aria-hidden="true">
+                        </span>
+                        </a>
+                    </li>                 
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+<!---FONDO-->
+    <header style="background-image: url('img/perfil.jpg'); max-width:100%;width:100%;">
+        <div class="header-content">
+            <div class="header-content-inner">
+            </div> 	
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">REGISTRO DE TUS AVANCES</h2>
+                    <hr class="primary">
+                    <h4>Recuerda que es importante tu constante asistencia para obtener buenos resultados.</h4>
+                    <div class="container"></div>
+                    <br>
+                    <br>
+                </div>
+                 <div class="col-lg-8 col-lg-offset-2 text-center">
+                   <a href="#registros" class="btn btn-primary btn-xl page-scroll btn-center">Consulta tus Registros</a> &nbsp;
+                   <a href="./rutina.html" class="btn btn-primary btn-xl page-scroll btn-center">CONSULTAR MI RUTINA</a>
+                   <a href="./nutricion.html" class="btn btn-primary btn-xl page-scroll btn-center">CONSULTAR MI DIETA</a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+<!---GRAFICAS ASISTENCIA-->
+        <div class="wrapper col-lg-offset-2" id="asistencia">
+            <div class="chart-container  col-xs-offset-12" style=" width: 80%;">
+                <canvas id="myChart"></canvas>
+            </div>      
+        </div>
+        <script type="text/javascript">
+            var ctx = document.getElementById('myChart');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [{
+                        label: "ASISTENCIAS",
+                        fill: false,
+                        borderColor: '#2ECC71',
+                        pointBorderColor: 'black',
+                        pointBackgroundColor:'yellow',
+                        data: [0, 10, 6, 14, 12, 10, 15],
+                    },{
+                        label: "FALTAS",
+                        fill: false,
+                        borderColor:'#F1C40F',
+                        pointBorderColor: 'black',
+                        pointBackgroundColor:'green',
+                        data: [0, 5, 8, 1, 3, 5,0],
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    responsive:true,
+                    title: {
+                        display: true,
+                        text: 'ASISTENCIA'
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: 'black',
+                            fontStyle: 'cursive',
+                        }
+                    }
+                }
+            });
+        </script>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">AVANCES DE TUS REGISTRO DURANTE EL SEMESTRE</h2>
+                    <hr class="primary">
+                    <div class="container"></div>
+                    <br>
+                    <br>
+                    <a href="#asistencia" class="btn btn-primary btn-xl page-scroll btn-center">Consulta tu Asistencia</a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+<!---GRAFICA PESO-->
+        <div class="wrapper col-lg-offset-2" id="registros">
+            <div class="chart-container col-xs-offset-12" style=" width: 80%;">
+                <canvas id="myChart2"></canvas>
+            </div>      
+        </div>
+        <script type="text/javascript">
+            var ctx = document.getElementById('myChart2').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [{
+                        label: "PESO",
+                        backgroundColor:'#D4E6F1',
+                        borderColor:'#336699',
+                        data: [67, 65, 63, 65, 62, 61, 58],
+                    }]
+                },
+
+                // Configuration options go here
+                 options: {
+                    responsive:true,
+                    title: {
+                        display: true,
+                        text: 'REGISRO DE PESO'
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: 'black',
+                            fontStyle: 'cursive',
+                        }
+                    }
+                }
+            });
+        </script>
+
+<!---GRAFICA CIRCUNFERENCIA CINTURA-->
+        <div class="wrapper col-lg-offset-2">
+            <div class="chart-container col-xs-offset-12" style=" width: 80%;">
+                <canvas id="myChart3"></canvas>
+            </div>      
+        </div>
+        <script type="text/javascript">
+            var ctx = document.getElementById('myChart3').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [{
+                        label: "CIRCUNFERENCIA DE LA CINTURA",
+                        backgroundColor: '#A9DFBF',  
+                        borderColor: '#239B56  ',
+                        data: [80, 75, 73, 75, 70, 75, 80],
+                    }]
+                },
+
+                // Configuration options go here
+                 options: {
+                    responsive:true,
+                    title: {
+                        display: true,
+                        text: 'REGISRO DE CIRCUNFERENCIA DE LA CINTURA'
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: 'black',
+                            fontStyle: 'cursive',
+                        }
+                    }
+                }
+            });
+        </script>
+
+<!---GRAFICAS REGISTROS FRECUENCIA CARDIACA EN REPOSO-->
+        <div class="wrapper col-lg-offset-2">
+            <div class="chart-container col-xs-offset-12" style=" width: 80%;">
+                <canvas id="myChart4"></canvas>
+            </div>      
+        </div>
+        <script type="text/javascript">
+            var ctx = document.getElementById('myChart4').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [{
+                        label: "FRECUENCIA CARDIACA",
+                        backgroundColor: '#F9E79F',
+                        borderColor: '#F4D03F',
+                        data: [102, 114, 120, 110, 105, 100, 114],
+                    }]
+                },
+
+                // Configuration options go here
+                 options: {
+                    responsive:true,
+                    title: {
+                        display: true,
+                        text: 'REGISRO DE FRECUENCIA CARDIACA'
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: 'black',
+                            fontStyle: 'cursive',
+                        }
+                    }
+                }
+            });
+        </script>
+
+<!---GRAFICAS REGISTROS PRESIÓN ARTERIAL-->
+        <div class="wrapper col-lg-offset-2">
+            <div class="chart-container col-xs-offset-12" style=" width: 80%;">
+                <canvas id="myChart5"></canvas>
+            </div>      
+        </div>
+        <script type="text/javascript">
+            var ctx = document.getElementById('myChart5').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [{
+                        label: "PRESIÓN ARTERIAL",
+                        backgroundColor: '#F5B7B1',
+                        borderColor: '#C0392B',
+                        data: [0, 10, 5, 2, 20, 30, 45],
+                    }]
+                },
+
+                // Configuration options go here
+                 options: {
+                    responsive:true,
+                    title: {
+                        display: true,
+                        text: 'REGISRO DE PRESIÓN ARTERIAL'
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: 'black',
+                            fontStyle: 'cursive',
+                        }
+                    }
+                }
+            });
+        </script>      
+    </section>
+
+
+    <section class="bg-dark" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">CONTACTO</h2>
+                    <hr class="primary">
+                    <p>Para cualquier información contactanos.</p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 text-center">
+                    <i class="fa fa-phone fa-3x sr-contact"></i>
+                    <p>55-50-74-09-51</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                    <p><a href="mailto:your-email@your-domain.com">escuela_fit@zoho.com
+                    </a></p>
+                </div>
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <p><b>SIGUE NUESTRAS REDES SOCIALES !!!</b></p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 text-center">
+                    <a href="https://www.facebook.com"><i class="fa fa-3x fa-facebook-square sr-contact"></i></a>
+                    <p>FACEBOOK</p>
+                </div>
+                <div class="col-lg-4 text-center text-center">
+                    <a href="https://www.youtube.com"><i class="fa fa-3x fa-youtube text-center sr-contact" aria-hidden="true"></i></a>
+                    <p>YOUTUBE</p>
+                </div>
+                <div class="col-xs-6 col-lg-6 text-center text-center">
+                    <img src="img/upiicsa.png"  width="100" height="100" style="margin-left:20px">
+                </div>
+                <div class="col-xs-6 col-lg-6 text-center text-center">
+                    <img src="img/ipn.png"  width="70" height="100" style="margin-left:20px">
+                </div>                    
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/creative.min.js"></script>
+
+    
+
+</body>
+
+</html>
