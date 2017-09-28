@@ -1,11 +1,8 @@
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-SECRET_KEY = 'l04bnx%*dra(ha+tj-9b#8nhgd6!(8q@6&+j7z6t9(_t3+h&j_'
-
+SECRET_KEY = 'zlwk@=cjljkfo4sjz&j%8$ujpq=lr#e*dk26_u+c##@6$rs$ap'
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
@@ -15,9 +12,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Apps propias
-    'apps.alumnos',
-    'apps.pase_lista',
+    # Own apps
+    'apps.attendance',
+    'apps.physical_record',
+    'apps.students',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +70,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 LANGUAGE_CODE = 'es-mex'
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -79,4 +78,4 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

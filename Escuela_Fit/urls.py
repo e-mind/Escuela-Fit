@@ -1,19 +1,19 @@
-from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf.urls import url, include
 from django.views.generic import TemplateView
 
 urlpatterns = [
 	# MAIN
     url(r'^$', TemplateView.as_view(template_name='main/index.html'), name='index'),
-    url(r'^login/$', TemplateView.as_view(template_name='main/iniciars.html'), name='login'),
+    url(r'^login/$', TemplateView.as_view(template_name='main/login.html'), name='login'),
     # url(r'^logout/$', , name='logout'),
-    url(r'^rutina/$', TemplateView.as_view(template_name='main/rutina.html'), name='rutina'),
-    url(r'^dieta/$', TemplateView.as_view(template_name='main/nutricion.html'), name='dieta'),
-    url(r'^calidad_aire/$', TemplateView.as_view(template_name='main/ca.html'), name='calidad_aire'),
-    url(r'^perfil/$', TemplateView.as_view(template_name='main/perfil.html'), name='perfil'),
+    url(r'^nutrition/$', TemplateView.as_view(template_name='main/nutrition.html'), name='nutrition'),
+    url(r'^profile/$', TemplateView.as_view(template_name='main/profile.html'), name='profile'),
+    url(r'^weather/$', TemplateView.as_view(template_name='main/weather.html'), name='weather'),
+    url(r'^workout/$', TemplateView.as_view(template_name='main/workout.html'), name='workout'),
 
     # APPS
     url(r'^admin/', admin.site.urls),
-    url(r'^pase_lista/', include('apps.pase_lista.urls', namespace='pase_lista')),
-    url(r'^alumnos/', include('apps.alumnos.urls', namespace='alumnos')),
+    url(r'^attendance/', include('apps.attendance.urls', namespace='attendance')),
+    url(r'^students/', include('apps.students.urls', namespace='students')),
 ]
