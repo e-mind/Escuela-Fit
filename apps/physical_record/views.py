@@ -5,7 +5,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from apps.students.filters import AlumnoFilter
+from apps.students.filters import StudentFilter
 
 from .models import PhysicalRecord
 from .forms import PhysicalRecordForm
