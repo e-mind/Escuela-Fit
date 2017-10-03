@@ -9,6 +9,7 @@ urlpatterns = [
     # url(r'^logout/$', , name='logout'),
     url(r'^nutrition/$', TemplateView.as_view(template_name='main/nutrition.html'), name='nutrition'),
     url(r'^profile/$', TemplateView.as_view(template_name='main/profile.html'), name='profile'),
+    url(r'^signup/$', TemplateView.as_view(template_name='main/signup.html'), name='signup'),
     url(r'^weather/$', TemplateView.as_view(template_name='main/weather.html'), name='weather'),
     url(r'^workout/$', TemplateView.as_view(template_name='main/workout.html'), name='workout'),
 
