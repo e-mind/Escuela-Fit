@@ -1,0 +1,5 @@
+Dale click al link:
+
+{{ request.scheme }}://{{ request.get_host }}{% url 'registration_activate' activation_key %}
+
+- Escuela Fit
