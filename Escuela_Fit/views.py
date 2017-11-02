@@ -1,14 +1,22 @@
-from django.conf import settings
+import json
+import time
+import requests
+
 from django.http import HttpResponse
-from django.core.mail import send_mail
 
 
-def email(request):
-    email_subject = 'Email test'
-    email_message = 'This is a test.'
-    email_from = getattr(settings, 'EMAIL_HOST_USER', '')
-    email_to = ['jfer.garciav@gmail.com']
+def weather(request):
+    url = 'https://pacific-garden-86188.herokuapp.com/estacion'
+    date = time.strftime("%Y-%m-%d", time.localtime())
+    param = 'CO'
+    station = 144
+    range = 4
+    payload = {'estacion': station, 'Fecha': date, 'parametro': param, 'rango': range}
 
-    send_mail(email_subject, email_message, email_from, email_to, fail_silently=False)
+    response = requests.get(url, params=payload)
+    response = json.loads(response.text)
+    response = response.pop()
 
-    return HttpResponse('Email sent')
+    response = 'No realizar actividad física' if float(response['valor']) > 1 else 'Clima apto para la actividad física'
+
+    return HttpResponse(response)

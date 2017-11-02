@@ -10,27 +10,45 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li {{ profile }}>
-                    <a class="page-scroll" href="{% url 'profile' %}">PERFIL</a>
-                </li>
-                <li {{ workout }}>
-                    <a class="page-scroll" href="{% url 'workout' %}">RUTINAS</a>
-                </li>
-                <li {{ nutrition }}>
-                    <a class="page-scroll" href="{% url 'nutrition' %}">NUTRICIÓN</a>
-                </li>
-                <li {{ weather }}>
-                    <a class="page-scroll" href="{% url 'weather' %}">CALIDAD DEL AIRE</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#contact">CONTACTO</a>
-                </li>
-                <li> 
-                    <a href="{% url 'login' %}">
-                    <span class="fa fa-power-off fa-2x text-primary sr-icons" style="margin-right: 10px;" aria-hidden="true">
-                    </span>
-                    </a>
-                </li>                 
+                {% if request.user.is_authenticated %}
+                    <li {{ profile }}>
+                        <a class="page-scroll" href="{% url 'profile' %}">PERFIL</a>
+                    </li>
+                    <li {{ workout }}>
+                        <a class="page-scroll" href="{% url 'workout' %}">RUTINAS</a>
+                    </li>
+                    <li {{ nutrition }}>
+                        <a class="page-scroll" href="{% url 'nutrition' %}">NUTRICIÓN</a>
+                    </li>
+                    <li {{ weather }}>
+                        <a class="page-scroll" href="{% url 'weather' %}">CALIDAD DEL AIRE</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">CONTACTO</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'auth_logout' %}">
+                        <span class="fa fa-power-off fa-2x text-primary sr-icons" style="margin-right: 10px;" aria-hidden="true">
+                        </span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a class="page-scroll" href="#about">Acerca de Escuela FIT</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Usando Escuela FIT</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#portfolio">RECOMENDACIONES DE NUTRICIÓN</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#star">¡COMIENZA YA!</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">CONTACTO</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
