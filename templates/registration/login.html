@@ -2,14 +2,15 @@
 {% load i18n %}
 
 {% block content %}
-<form method="post" action=".">
-  {% csrf_token %} 
-  {{ form.as_p }}
+    <form method="post" action=".">
+      {% csrf_token %}
+      {{ form.as_p }}
 
-  <input type="submit" value="{% trans 'Entrar' %}" />
-  <input type="hidden" name="next" value="{{ next }}" />
-</form>
+      <input type="submit" value="{% trans 'Entrar' %}" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
 
-<p>{% trans "Olvidaste tu contraseña" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reseteala" %}</a>!</p>
-<p>{% trans "No tienes una cuenta" %}? <a href="{% url 'registration_register' %}">{% trans "Regístrate" %}</a>!</p>
+    <p>{% trans "Olvidaste tu contraseña" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reseteala" %}</a>!</p>
+    <p>{% trans "No tienes una cuenta" %}? <a href="{% url 'registration_register' %}">{% trans "Regístrate" %}</a>!</p>
+    <a href="{% url 'social:begin' 'facebook' %}">Iniciar sesión con Facebook</a>
 {% endblock %}

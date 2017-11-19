@@ -1,5 +1,10 @@
-Dale click al link:
+Hola,
+
+Para activar tu cuenta en Escuela Fit da click al siguiente link dentro de los siguientes 7 días:
 
 {{ request.scheme }}://{{ request.get_host }}{% url 'registration_activate' activation_key %}
+
+
+Si tú no solicitaste esta cuenta, posiblemente alguien más tecleó tu correo por error. Simplemente ignora este mensaje y tus datos serán borrados de nuestra base de datos.
 
 - Escuela Fit
