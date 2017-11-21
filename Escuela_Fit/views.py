@@ -1,6 +1,7 @@
 import json
-import time
+import os
 import requests
+import time
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -20,20 +21,38 @@ def index(request):
 
 
 def weather(request):
-    url = 'https://pacific-garden-86188.herokuapp.com/estacion'
+    # API SINAICA
+    url_sinaica = 'https://pacific-garden-86188.herokuapp.com/estacion'
     date = time.strftime("%Y-%m-%d", time.localtime())
     param = 'CO'
     station = 144
     range = 4
     payload = {'estacion': station, 'Fecha': date, 'parametro': param, 'rango': range}
 
-    response = requests.get(url, params=payload)
-    response = json.loads(response.text)
-    response = response.pop()
+    response_sinaica = requests.get(url_sinaica, params=payload)
+    response_sinaica = json.loads(response_sinaica.text).pop()
+    pollution = 'No realizar actividad física' if float(response_sinaica['valor']) > 1\
+                                                      else 'Clima apto para la actividad física'
 
-    response = 'No realizar actividad física' if float(response['valor']) > 1 else 'Clima apto para la actividad física'
+    #API OPENWEATHER
+    url_weather = 'http://api.openweathermap.org/data/2.5/weather'
+    id = 3527646
+    app_id = os.getenv('WEATHER_KEY', '')
+    payload = {'id': id, 'appid': app_id}
+    response_weather = requests.get(url_weather, params=payload)
+    response_weather = json.loads(response_weather.text)
+    temp = round(response_weather['main']['temp'] - 273.15) # Convert kelvin to celsius
+    temp_min = round(response_weather['main']['temp_min'] - 273.15) # Convert kelvin to celsius
+    temp_max = round(response_weather['main']['temp_max'] - 273.15) # Convert kelvin to celsius
+    humidity = response_weather['main']['humidity']
+    weather = {'temp': temp, 'temp_min': temp_min, 'temp_max': temp_max, 'humidity': humidity}
 
-    return HttpResponse(response)
+    context = {
+        'pollution': pollution,
+        'weather': weather,
+    }
+
+    return render(request, 'main/weather.html', context)
 
 
 def nutrition(request):

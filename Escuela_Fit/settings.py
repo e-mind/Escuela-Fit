@@ -35,7 +35,6 @@ MIDDLEWARE = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
 
@@ -120,7 +119,9 @@ SITE_ID = 1
 REGISTRATION_EMAIL_HTML = False
 
 # Social Networks
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile/'
 SOCIAL_AUTH_FACEBOOK_KEY = os.getenv('FACEBOOK_KEY', '')
 SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv('FACEBOOK_SECRET', '')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile/'
+SOCIAL_AUTH_TWITTER_KEY = os.getenv('TWITTER_KEY', '')
+SOCIAL_AUTH_TWITTER_SECRET = os.getenv('TWITTER_SECRET', '')
