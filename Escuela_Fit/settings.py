@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'social_django',
     # Own apps
     'apps.attendance',
+    'apps.nutrition',
     'apps.physical_record',
     'apps.students',
 ]

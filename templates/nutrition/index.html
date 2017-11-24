@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Nutrition{% endblock title %}
+
+{% block css %}
+    <style>
+        .active a {
+            background-color: #52B3D9 !important;
+            color: #fff !important;
+        }
+        hr {
+            background-color: #52B3D9;
+            height: 1px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+    {% spaceless %}
+        <h1>{{ title }}</h1><hr>
+
+        <ul class="nav nav-tabs">
+            {% for letter in letters %}
+                {% if forloop.counter == 1 %}
+                    <li class="active"><a data-toggle="tab" href="#{{ letter }}"><b>{{ letter }}</b></a></li>
+                {% else %}
+                    <li><a data-toggle="tab" href="#{{ letter }}"><b>{{ letter }}</b></a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <hr>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="tab-content" style="overflow: hidden;">
+                    {% for letter in letters %}
+                        {% if forloop.counter == 1 %}
+                            <div id="{{ letter }}" class="tab-pane fade in active">
+                        {% else %}
+                            <div id="{{ letter }}" class="tab-pane fade">
+                        {% endif %}
+                    
+                            {% for piece in food %}
+                                {% if piece.alimentos|slice:":1" == letter %}
+                                    <input type="radio" name="{{ key }}" value="{{ piece }}" id="{{ piece }}" />
+                                    <label for="{{ piece }}">{{ piece }}</label><br>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+            </div>
+            <input type="submit" value="Seleccionar" />
+        </form>
+    {% endspaceless %}
+{% endblock content %}
+
+{% block javascript %}
+    <script>
+        $(function() {
+            $('div').each(function() {
+                if ($(this).children().length == 0) {
+                    $(this).append("<p>No hay datos</p>");
+                }
+            });
+        });
+    </script>
+{% endblock javascript %}
