@@ -13,7 +13,7 @@ urlpatterns = [
     # APPS
     url(r'^admin/', admin.site.urls),
     # url(r'^attendance/', include('apps.attendance.urls', namespace='attendance')),
-    # url(r'^students/', include('apps.students.urls', namespace='students')),
+    url(r'^students/', include('apps.students.urls', namespace='students')),
     url(r'^accounts/activate/complete/$', MyActivationView.as_view(), name='registration_activation_complete'),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^nutrition/', include('apps.nutrition.urls', namespace='nutrition')),

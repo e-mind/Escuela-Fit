@@ -11,27 +11,27 @@ def index(request):
                 request.session[key] = value
 
     if 'aoa_alto' not in request.session:
-        title = 'AOA Alto'
+        title = 'Alimentos de Origen Animal Altos en Grasa'
         key = 'aoa_alto'
         food = AOAAltoEnGrasa.objects.all()
     elif 'aoa_bajo' not in request.session:
-        title = 'AOA Bajo'
+        title = 'Alimentos de Origen Animal Bajos en Grasa'
         key = 'aoa_bajo'
         food = AOABajosEnGrasa.objects.all()
     elif 'aoa_moderado' not in request.session:
-        title = 'AOA Moderado'
+        title = 'Alimentos de Origen Animal Moderados en Grasa'
         key = 'aoa_moderado'
         food = AOAModeradosEnGrasa.objects.all()
     elif 'aoa_muy_bajo' not in request.session:
-        title = 'AOA Muy Bajo'
+        title = 'Alimentos de Origen Animal Muy Bajos en Grasa'
         key = 'aoa_muy_bajo'
         food = AOAMuyBajosEnGrasa.objects.all()
     elif 'cereal_grasa' not in request.session:
-        title = 'Cereales con grasa'
+        title = 'Cereales con Grasa'
         key = 'cereal_grasa'
         food = Cerealescongrasa.objects.all()
     elif 'cereal' not in request.session:
-        title = 'Cereales sin grasa'
+        title = 'Cereales sin Grasa'
         key = 'cereal'
         food = Cerealessingrasa.objects.all()
     elif 'frutas' not in request.session:

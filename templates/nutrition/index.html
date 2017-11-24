@@ -5,13 +5,9 @@
 
 {% block css %}
     <style>
-        .active a {
-            background-color: #52B3D9 !important;
-            color: #fff !important;
-        }
-        hr {
-            background-color: #52B3D9;
-            height: 1px;
+        hr.hr-tab {
+            width: 100%;
+            max-width: 100%;
             margin-top: 5px;
             margin-bottom: 5px;
         }
@@ -20,7 +16,17 @@
 
 {% block content %}
     {% spaceless %}
-        <h1>{{ title }}</h1><hr>
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">BIENVENIDO  <br>A  ESCUELA FIT</br></h1>
+                <hr>
+                <p><b>"Ejercítate, es una buena forma de darle gracias a nuestro cuerpo."</b></p>
+                <a href="#about" class="btn btn-primary btn-xl page-scroll">¿Qué es Escuela Fit?</a>
+            </div>
+        </div>
+    </header>
+        <h1>{{ title }}</h1><hr class="hr-tab">
 
         <ul class="nav nav-tabs">
             {% for letter in letters %}
@@ -31,7 +37,7 @@
                 {% endif %}
             {% endfor %}
         </ul>
-        <hr>
+
         <form action="" method="post">
             {% csrf_token %}
             <div class="tab-content" style="overflow: hidden;">
@@ -51,7 +57,7 @@
                         </div>
                     {% endfor %}
             </div>
-            <input type="submit" value="Seleccionar" />
+            <input type="submit" value="Seleccionar" class="btn btn-primary" />
         </form>
     {% endspaceless %}
 {% endblock content %}

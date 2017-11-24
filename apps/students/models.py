@@ -36,5 +36,9 @@ class Student(models.Model):
     def __str__(self):
         return "{} {} {}".format(self.name, self.first_surname, self.second_surname)
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('students:detail', args=[str(self.id)])
+
     class Meta:
         ordering = ['first_surname', 'second_surname']

@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import requests
@@ -25,14 +26,21 @@ def weather(request):
     url_sinaica = 'https://pacific-garden-86188.herokuapp.com/estacion'
     date = time.strftime("%Y-%m-%d", time.localtime())
     param = 'CO'
-    station = 144
     range = 4
-    payload = {'estacion': station, 'Fecha': date, 'parametro': param, 'rango': range}
+    station = 144
 
-    response_sinaica = requests.get(url_sinaica, params=payload)
-    response_sinaica = json.loads(response_sinaica.text).pop()
+    while True:
+        try:
+            payload = {'estacion': station, 'Fecha': date, 'parametro': param, 'rango': range}
+            response_sinaica = requests.get(url_sinaica, params=payload)
+            response_sinaica = json.loads(response_sinaica.text).pop()
+            break
+        except:
+            date = datetime.date.today() - datetime.timedelta(days=1)
+            date = date.isoformat()
+
     pollution = 'No realizar actividad física' if float(response_sinaica['valor']) > 1\
-                                                      else 'Clima apto para la actividad física'
+                                                else 'Clima apto para la actividad física'
 
     #API OPENWEATHER
     url_weather = 'http://api.openweathermap.org/data/2.5/weather'
