@@ -16,8 +16,10 @@ class MyActivationView(ActivationView):
 
 
 def index(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and hasattr(request.user, 'student'):
         return redirect('profile')
+    else:
+        return redirect('students:create')
     return render(request, 'main/index.html', {})
 
 

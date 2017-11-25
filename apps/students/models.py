@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 CAREERS = (
     ('AI', 'Administración Industrial'),
@@ -32,6 +34,7 @@ class Student(models.Model):
     telephone = models.CharField("Teléfono", max_length=10)
     email = models.EmailField("Email", max_length=80)
     card_code = models.CharField("Código Tarjeta", max_length=11)
+    user = models.OneToOneField(User, null=True)
 
     def __str__(self):
         return "{} {} {}".format(self.name, self.first_surname, self.second_surname)
