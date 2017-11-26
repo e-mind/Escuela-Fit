@@ -53,7 +53,8 @@ class StudentDelete(DeleteView):
 def student_list(request):
     if request.user.is_superuser:
         student_list = Student.objects.all()
-        for key, value in request.GET.copy().items():
+        request.GET = request.GET.copy()
+        for key, value in request.GET.items():
             request.GET[key] = value.lower()
 
         student_filter = StudentFilter(request.GET, queryset=student_list)

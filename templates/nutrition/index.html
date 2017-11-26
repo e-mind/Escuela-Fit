@@ -16,17 +16,15 @@
 
 {% block content %}
     {% spaceless %}
-    <header>
-        <div class="header-content">
-            <div class="header-content-inner">
-                <h1 id="homeHeading">BIENVENIDO  <br>A  ESCUELA FIT</br></h1>
-                <hr>
-                <p><b>"Ejercítate, es una buena forma de darle gracias a nuestro cuerpo."</b></p>
-                <a href="#about" class="btn btn-primary btn-xl page-scroll">¿Qué es Escuela Fit?</a>
+        <header>
+            <div class="header-content">
+                <div class="header-content-inner">
+                    <h1 id="homeHeading">GUIA DE NUTRICIÓN</br></h1>
+                    <hr>
+                </div>
             </div>
-        </div>
-    </header>
-        <h1>{{ title }}</h1><hr class="hr-tab">
+        </header>
+        <h1>{{ title }} <i>(Selecciona {{ quantity }})</i></h1><hr class="hr-tab">
 
         <ul class="nav nav-tabs">
             {% for letter in letters %}
@@ -38,7 +36,7 @@
             {% endfor %}
         </ul>
 
-        <form action="" method="post">
+        <form action="" method="post" id="form">
             {% csrf_token %}
             <div class="tab-content" style="overflow: hidden;">
                     {% for letter in letters %}
@@ -50,15 +48,20 @@
                     
                             {% for piece in food %}
                                 {% if piece.alimentos|slice:":1" == letter %}
-                                    <input type="radio" name="{{ key }}" value="{{ piece }}" id="{{ piece }}" />
+                                    {% if quantity == 1 %}
+                                        <input type="radio" name="{{ key }}" value="{{ piece }}" id="{{ piece }}" />
+                                    {% else %}
+                                        <input type="checkbox" name="{{ key }}" value="{{ piece }}" id="{{ piece }}" />
+                                    {% endif %}
                                     <label for="{{ piece }}">{{ piece }}</label><br>
                                 {% endif %}
                             {% endfor %}
                         </div>
                     {% endfor %}
             </div>
-            <input type="submit" value="Seleccionar" class="btn btn-primary" />
-        </form>
+            <input type="submit" value="Seleccionar" class="btn btn-primary" {% if quantity == 1 %} onsubmit="checkFood(e);" {% endif %} />
+        </form><br>
+        <div id="selected"></div>
     {% endspaceless %}
 {% endblock content %}
 
@@ -67,9 +70,37 @@
         $(function() {
             $('div').each(function() {
                 if ($(this).children().length == 0) {
-                    $(this).append("<p>No hay datos</p>");
+                    if(this.id != 'selected') {
+                        $(this).append("<p>No hay datos</p>");
+                    }
                 }
             });
+        });
+
+        $('#form :checkbox').change(function() {
+            id_check = this.id;
+            id_check = id_check.replace(/\s/g, '_');
+            if (this.checked) {
+                $('#selected').append('<button id="'+ id_check +'" onclick="remove(this);">' + this.value + '</button>');
+            } else {
+                id_check = 'button#' + id_check;
+                $(id_check).remove();
+            }
+        });
+
+        function remove(element) {
+            btn_id = 'button#' + element.id;
+            check_id = element.id.replace(/_/g, ' ');
+            $(btn_id).remove();
+            document.getElementById(check_id).checked = false;
+        }
+
+        $('#form').submit(function(e) {
+            e.preventDefault();
+            checks = $('#form :checkbox:checked').length;
+            if (checks != {{ quantity }}) {
+                alert('Debes seleccionar {{ quantity }}')
+            }
         });
     </script>
 {% endblock javascript %}
