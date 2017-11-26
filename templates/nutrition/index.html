@@ -59,7 +59,7 @@
                         </div>
                     {% endfor %}
             </div>
-            <input type="submit" value="Seleccionar" class="btn btn-primary" {% if quantity == 1 %} onsubmit="checkFood(e);" {% endif %} />
+            <input type="submit" value="Seleccionar" class="btn btn-primary" />
         </form><br>
         <div id="selected"></div>
     {% endspaceless %}
@@ -88,6 +88,17 @@
             }
         });
 
+        $('#form :radio').change(function() {
+            id_check = this.id;
+            id_check = id_check.replace(/\s/g, '_');
+            if (this.checked) {
+                $('#selected').html('<button id="'+ id_check +'" onclick="remove(this);">' + this.value + '</button>');
+            } else {
+                id_check = 'button#' + id_check;
+                $(id_check).remove();
+            }
+        });
+
         function remove(element) {
             btn_id = 'button#' + element.id;
             check_id = element.id.replace(/_/g, ' ');
@@ -97,9 +108,16 @@
 
         $('#form').submit(function(e) {
             e.preventDefault();
-            checks = $('#form :checkbox:checked').length;
-            if (checks != {{ quantity }}) {
-                alert('Debes seleccionar {{ quantity }}')
+            if ({{ quantity }} == 1) {
+                checks = $('#form :radio:checked').length;
+                if (checks != 1) {
+                    alert('Debes seleccionar 1');
+                }
+            } else {
+                checks = $('#form :checkbox:checked').length;
+                if (checks != {{ quantity }}) {
+                    alert('Debes seleccionar {{ quantity }}');
+                }
             }
         });
     </script>
