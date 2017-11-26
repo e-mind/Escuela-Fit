@@ -6,7 +6,7 @@ from .models import Student
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = '__all__'
+        fields = ['student_number', 'career', 'semester', 'name', 'first_surname', 'second_surname', 'age', 'birthday', 'telephone', 'email', 'card_code']
 
         widgets = {
             'student_number': forms.TextInput(attrs={'class': 'form-control'}),
@@ -15,12 +15,20 @@ class StudentForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'first_surname': forms.TextInput(attrs={'class': 'form-control'}),
             'second_surname': forms.TextInput(attrs={'class': 'form-control'}),
-            'age': forms.NumberInput(attrs={'class': 'form-control'}),
-            'birthday': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'dd/mm/aaaa    ó    dd/mm/aa    ó    aaaa-mm-dd'}),
-            'telephone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ej. 5512345678'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control', 'min': '15', 'max': '70'}),
+            'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
+            'telephone': forms.TextInput(attrs={'type': 'tel', 'class': 'form-control', 'placeholder': 'Ej. 5512345678'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'card_code': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+    def clean_student_number(self):
+        student_number = self.cleaned_data.get("student_number")
+
+        if len(student_number) != 10:
+            raise forms.ValidationError("Escribe una boleta válida. Ej: 2016609999")
+
+        return student_number
 
     def clean_name(self):
         name = self.cleaned_data.get("name")
@@ -43,16 +51,29 @@ class StudentForm(forms.ModelForm):
     def clean_age(self):
         age = self.cleaned_data.get("age")
 
-        if age < 15 or age > 80:
-            raise forms.ValidationError("Escoge una age entre 15 y 80")
+        if age < 15 or age > 70:
+            raise forms.ValidationError("Escoge una age entre 15 y 70")
 
         return age
+
+    def clean_telephone(self):
+        telephone = self.cleaned_data.get("telephone")
+        telephone = telephone.replace(" ", "")
+        telephone = telephone.replace("-", "")
+        telephone = telephone.replace(".", "")
+        telephone = telephone.replace("(", "")
+        telephone = telephone.replace(")", "")
+
+        if len(telephone) not in [8,10]:
+            raise forms.ValidationError("Escribe un formato válido. Ej: 5512345678")
+
+        return telephone
 
     def clean_card_code(self):
         card_code = self.cleaned_data.get("card_code")
         card_code = card_code.replace(' ', '')
 
-        if len(card_code) < 8:
+        if len(card_code) != 8:
             raise forms.ValidationError("El código debe ser de 8 caracteres")
 
         card_code = card_code[:2] + " " + card_code[2:4] + " " + card_code[4:6] + " " + card_code[6:]

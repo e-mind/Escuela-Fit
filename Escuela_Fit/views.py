@@ -7,20 +7,19 @@ import time
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from registration.views import ActivationView
 
-
-class MyActivationView(ActivationView):
-    def get_success_url(self, user):
-        return '/profile/'
+def activation_complete(request):
+    if request.user.is_authenticated:
+        return redirect('index')
 
 
 def index(request):
-    if request.user.is_authenticated and hasattr(request.user, 'student'):
+    if request.user.is_anonymous:
+        return render(request, 'main/index.html', {})
+    elif request.user.is_authenticated and hasattr(request.user, 'student'):
         return redirect('profile')
     else:
         return redirect('students:create')
-    return render(request, 'main/index.html', {})
 
 
 def weather(request):

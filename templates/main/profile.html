@@ -40,7 +40,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">REGISTRO DE TUS AVANCES, {{ request.user.first_name }}</h2>
+                    <h2 class="section-heading">REGISTRO DE TUS AVANCES, {{ request.user.first_name|title }}</h2>
                     <hr class="primary">
                     <h4>Recuerda que es importante tu constante asistencia para obtener buenos resultados.</h4>
                     <div class="container"></div>
@@ -49,7 +49,7 @@
                 </div>
                  <div class="col-lg-8 col-lg-offset-2 text-center">
                    <a href="#registros" class="btn btn-primary btn-xl page-scroll btn-center">Consulta tus Registros</a> &nbsp;
-                   <a href="{% url 'nutrition' %}" class="btn btn-primary btn-xl page-scroll btn-center">CONSULTAR MI DIETA</a>
+                   <a href="{% url 'nutrition:index' %}" class="btn btn-primary btn-xl page-scroll btn-center">CONSULTAR MI DIETA</a>
                 </div>
             </div>
         </div>

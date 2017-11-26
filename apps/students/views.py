@@ -14,13 +14,31 @@ from .filters import StudentFilter
 class StudentCreate(CreateView):
     template_name = 'students/form.html'
     form_class = StudentForm
-    success_url = reverse_lazy('students:list')
+
+    def get(self, request):
+        if hasattr(request.user, 'student'):
+            pk = request.user.student.pk
+            return redirect(reverse_lazy('students:detail', kwargs={'pk': pk}))
+
+        return super(StudentCreate, self).get(request)
+
+    def form_valid(self, form):
+        student = form.save()
+        self.request.user.first_name = student.name
+        self.request.user.last_name = student.first_surname
+        student.user = self.request.user
+        self.request.user.save()
+        student.save()
+        return redirect(reverse_lazy('students:detail', kwargs={'pk': student.pk}))
 
 class StudentUpdate(UpdateView):
     model = Student
     template_name = 'students/form.html'
     form_class = StudentForm
-    success_url = reverse_lazy('students:list')
+
+    def form_valid(self, form):
+        student = form.save()
+        return redirect(reverse_lazy('students:detail', kwargs={'pk': student.pk}))
 
 class StudentDetail(DetailView):
     model = Student
@@ -35,8 +53,7 @@ class StudentDelete(DeleteView):
 def student_list(request):
     if request.user.is_superuser:
         student_list = Student.objects.all()
-        request.GET = request.GET.copy() # Devuelve un diccionario mutable
-        for key, value in request.GET.items():
+        for key, value in request.GET.copy().items():
             request.GET[key] = value.lower()
 
         student_filter = StudentFilter(request.GET, queryset=student_list)

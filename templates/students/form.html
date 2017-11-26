@@ -1,4 +1,5 @@
 {% extends "../base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}Formulario{% endblock title %}
 
@@ -12,23 +13,26 @@
 {% endblock breadcrumb %}
 
 {% block content %}
-    <form action="" method="post" class="form-horizontal">
-        <fieldset>
-            <legend class="text-center">Datos Alumno</legend>
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="form-group">
-                    <label for="{{ field.id_for_label }}" class="col-sm-4 col-lg-3 col-lg-offset-1 control-label">{{ field.label }}</label>
-                    <div class="col-sm-7 col-lg-6">
-                        {{ field }}
+    <div class="container">
+        <form action="" method="post" class="form-horizontal">
+            <fieldset>
+                <legend class="text-center">Datos Alumno</legend>
+                {% csrf_token %}
+                <!-- {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}" class="col-sm-4 col-lg-3 col-lg-offset-1 control-label">{{ field.label }}</label>
+                        <div class="col-sm-7 col-lg-6">
+                            {{ field }}
+                        </div>
                     </div>
+                {% endfor %} -->
+                {{ form|crispy }}
+                <br />
+                <div class="text-center">
+                    <a href="{% url 'students:list' %}" class="btn btn-default">Cancelar</a>
+                    <input type="submit" value="Guardar" class="btn btn-success" />
                 </div>
-            {% endfor %}
-            <br />
-            <div class="text-center">
-                <a href="{% url 'students:list' %}" class="btn btn-default">Cancelar</a>
-                <input type="submit" value="Guardar" class="btn btn-success" />
-            </div>
-        </fieldset>
-    </form>
+            </fieldset>
+        </form>
+    </div>
 {% endblock content %}

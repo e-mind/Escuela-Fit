@@ -1,11 +1,16 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n crispy_forms_tags %}
 
 {% block content %}
-<form method="post" action=".">
-  {% csrf_token %}
-  {{ form.as_p }}
+	<div class="container">
+		<form method="post" action=".">
+		  {% csrf_token %}
+		  {{ form|crispy }}
 
-  <input type="submit" value="{% trans 'Registrar' %}" />
-</form>
+		  <input type="submit" value="{% trans 'Registrar' %}" class="btn btn-primary" />
+		</form>
+
+		<a href="{% url 'social:begin' 'facebook' %}">Iniciar sesión con Facebook</a><br>
+	    <a href="{% url 'social:begin' 'twitter' %}">Iniciar sesión con Twitter</a>
+	</div>
 {% endblock content %}
