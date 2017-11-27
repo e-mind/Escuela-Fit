@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block css %}
+    <style>
+    	.container {
+    		margin-top: 80px;
+    	}
+        hr.hr-title {
+            width: 100%;
+            max-width: 100%;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+	<div class="container">
+		<h1 class="text-center">{{ title|upper }}</h1><br><br>
+		{% for d in diet %}
+			<h2>{{ d.0 }}</h2><hr class="hr-title">
+			<ul><li class="lead">{{ d.1 }}</li></ul>
+			<br>
+		{% endfor %}
+	</div>
+{% endblock %}

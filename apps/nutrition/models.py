@@ -2,6 +2,26 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+from apps.students.models import Student
+
+
+class Nutrition(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    schedule = models.CharField(max_length=15)
+    create_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.pk}"
+
+
+class Nutrition_Food(models.Model):
+    nutrition = models.ForeignKey(Nutrition, on_delete=models.CASCADE)
+    food_id = models.IntegerField()
+    food_table = models.CharField(max_length=15)
+
+    def __str__(self):
+        return f"{self.pk} {self.food_id} {self.food_table}"
+
 
 class AOAAltoEnGrasa(models.Model):
     alimentos = models.CharField(max_length=100)

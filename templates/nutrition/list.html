@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Index{% endblock %}
+
+{% block css %}
+    <style>
+    	.container {
+    		margin-top: 80px;
+    	}
+        hr.hr-title {
+            width: 100%;
+            max-width: 100%;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+	<div class="container">
+		<h1 class="text-center">GUÍAS DE NUTRICIÓN</h1><br><br>
+		{% for diet in diets %}
+			<a href="{% url 'nutrition:detail' diet.schedule diet.pk %}">
+				<h2>{{ diet.schedule }}</h2>
+				<p>{{ diet.create_date }}</p>
+			</a>
+		{% endfor %}
+	</div>
+{% endblock %}
