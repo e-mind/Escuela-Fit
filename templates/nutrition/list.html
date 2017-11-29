@@ -25,6 +25,9 @@
 				<h2>{{ diet.schedule }}</h2>
 				<p>{{ diet.create_date }}</p>
 			</a>
+        {% empty %}
+            <p class="lead">Aún no tienes guías de nutrición.</p>
+            <a href="{% url 'nutrition:create' %}">Obtener una guía de nutrición</a>
 		{% endfor %}
 	</div>
 {% endblock %}

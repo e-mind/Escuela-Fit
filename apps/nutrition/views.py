@@ -19,6 +19,16 @@ def list(request):
 
 
 @login_required
+def cancel(request):
+    for key in ['diet', 'schedule', 'aoa_alto', 'aoa_moderado', 'aoa_bajo', 'aoa_muy_bajo', 'cereal', 'cereal_grasa', 'frutas', 'leguminosas', 'verduras']:
+        try:
+            del request.session[key]
+        except:
+            continue
+    return redirect(reverse_lazy('nutrition:create'))
+
+
+@login_required
 def detail(request, schedule, pk):
     nutrition = Nutrition.objects.get(pk=pk)
     nutrition_food = nutrition.nutrition_food_set.all()

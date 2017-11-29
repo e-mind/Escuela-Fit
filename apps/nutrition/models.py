@@ -11,7 +11,7 @@ class Nutrition(models.Model):
     create_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.pk}"
+        return "{}".format(self.pk)
 
 
 class Nutrition_Food(models.Model):
@@ -20,7 +20,7 @@ class Nutrition_Food(models.Model):
     food_table = models.CharField(max_length=15)
 
     def __str__(self):
-        return f"{self.pk} {self.food_id} {self.food_table}"
+        return "{} {} {}".format(self.pk, self.food_id, self.food_table)
 
 
 class AOAAltoEnGrasa(models.Model):
