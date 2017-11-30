@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Nutrition{% endblock title %}
+
+{% block css %}
+    <style>
+        hr.hr-tab {
+            width: 100%;
+            max-width: 100%;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">GUIA DE NUTRICIÓN</br></h1>
+                <hr>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        {% spaceless %}
+            <h1>{{ title }} <i>(Selecciona 1)</i></h1><hr class="hr-tab">
+
+            <ul class="nav nav-tabs">
+                {% for letter in letters %}
+                    {% if forloop.counter == 1 %}
+                        <li class="active"><a data-toggle="tab" href="#{{ letter }}"><b>{{ letter }}</b></a></li>
+                    {% else %}
+                        <li><a data-toggle="tab" href="#{{ letter }}"><b>{{ letter }}</b></a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <form action="" method="post" id="form">
+                {% csrf_token %}
+                <div class="tab-content" style="overflow: hidden;">
+                        {% for letter in letters %}
+                            {% if forloop.counter == 1 %}
+                                <div id="{{ letter }}" class="tab-pane fade in active">
+                            {% else %}
+                                <div id="{{ letter }}" class="tab-pane fade">
+                            {% endif %}
+                        
+                                {% for piece in food %}
+                                    {% if piece.alimentos|slice:":1" == letter %}
+                                        <input type="radio" name="{{ key }}" value="{{ piece }}" id="{{ piece }}" />
+                                        <label for="{{ piece }}">{{ piece }}</label><br>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                </div>
+                <a href="{{ referer }}" class="btn btn-warning">Cancelar</a>
+                <input type="submit" value="Seleccionar" class="btn btn-primary" />
+            </form><br>
+            <div id="selected"></div>
+        {% endspaceless %}
+    </div>
+{% endblock content %}
+
+{% block javascript %}
+    <script>
+        $(function() {
+            $('div').each(function() {
+                if ($(this).children().length == 0) {
+                    if(this.id != 'selected') {
+                        $(this).append("<p>No hay datos</p>");
+                    }
+                }
+            });
+        });
+
+        $('#form :radio').change(function() {
+            id_check = this.id;
+            id_check = id_check.replace(/\s/g, '_');
+            if (this.checked) {
+                $('#selected').html('<button id="'+ id_check +'" onclick="remove(this);" class="btn btn-info">' + this.value + '</button>');
+            } else {
+                id_check = 'button#' + id_check;
+                $(id_check).remove();
+            }
+        });
+
+        function remove(element) {
+            btn_id = 'button#' + element.id;
+            check_id = element.id.replace(/_/g, ' ');
+            $(btn_id).remove();
+            document.getElementById(check_id).checked = false;
+        }
+
+        $('#form').submit(function(e) {
+            checks = $('#form :radio:checked').length;
+            if (checks != 1) {
+                alert('Debes seleccionar 1');
+                e.preventDefault();
+            }
+        });
+    </script>
+{% endblock javascript %}

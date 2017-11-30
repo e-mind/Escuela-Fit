@@ -19,11 +19,22 @@
 
 {% block content %}
 	<div class="container">
-		<h1 class="text-center">{{ title|upper }}</h1><br><br>
-		{% for d in diet %}
-			<h2>{{ d.0 }}</h2><hr class="hr-title">
-			<ul><li class="lead">{{ d.1 }}</li></ul>
+		<h1 class="text-center">{{ title|upper }}</h1>
+        <h3 class="text-center">{{ total_calories }} kcal</h3>
+        <br>
+		{% for type, food, nf in diet %}
+			<h2>{{ type }}</h2><hr class="hr-title">
+			<ul>
+                <li><b class="lead">{{ food }}</b>
+                    <ul>
+                        <li>Cantidad sugerida: {{ food.cantidadsugerida }} {{ food.unidad }}</li>
+                        <li>Calorías: {{ food.energiakcal }}</li>
+                        <li><a href="{% url 'nutrition:update_food' nf.food_table nf.pk %}" class="btn">Editar</a></li>
+                    </ul>
+                </li>
+            </ul>
 			<br>
 		{% endfor %}
+        <a href="{% url 'nutrition:list' %}" class="btn btn-primary btn-lg">Volver</a>
 	</div>
 {% endblock %}

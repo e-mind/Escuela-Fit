@@ -33,41 +33,45 @@ def detail(request, schedule, pk):
     nutrition = Nutrition.objects.get(pk=pk)
     nutrition_food = nutrition.nutrition_food_set.all()
     diet = []
-    for n in nutrition_food:
-        if n.food_table == 'aoa_alto':
-            food = AOAAltoEnGrasa.objects.get(pk=n.food_id)
-            diet.append(('Alimentos de Origen Animal Altos en Grasa', food.alimentos))
-        elif n.food_table == 'aoa_bajo':
-            food = AOABajosEnGrasa.objects.get(pk=n.food_id)
-            diet.append(('Alimentos de Origen Animal Bajos en Grasa', food.alimentos))
-        elif n.food_table == 'aoa_moderado':
-            food = AOAModeradosEnGrasa.objects.get(pk=n.food_id)
-            diet.append(('Alimentos de Origen Animal Moderados en Grasa', food.alimentos))
-        elif n.food_table == 'aoa_muy_bajo':
-            food = AOAMuyBajosEnGrasa.objects.get(pk=n.food_id)
-            diet.append(('Alimentos de Origen Animal Muy Bajos en Grasa', food.alimentos))
-        elif n.food_table == 'cereal_grasa':
-            food = Cerealescongrasa.objects.get(pk=n.food_id)
-            diet.append(('Cereal con Grasa', food.alimentos))
-        elif n.food_table == 'cereal':
-            food = Cerealessingrasa.objects.get(pk=n.food_id)
-            diet.append(('Cereal sin grasa', food.alimentos))
-        elif n.food_table == 'frutas':
-            food = Frutas.objects.get(pk=n.food_id)
-            diet.append(('Frutas', food.alimentos))
-        elif n.food_table == 'leguminosas':
-            food = Leguminosas.objects.get(pk=n.food_id)
-            diet.append(('Leguminosas', food.alimentos))
-        elif n.food_table == 'verduras':
-            food = Verduras.objects.get(pk=n.food_id)
-            diet.append(('Verduras', food.alimentos))
+    total_calories = 0
+    for nf in nutrition_food:
+        if nf.food_table == 'aoa_alto':
+            food = AOAAltoEnGrasa.objects.get(pk=nf.food_id)
+            diet.append(('Alimentos de Origen Animal Altos en Grasa', food, nf))
+        elif nf.food_table == 'aoa_bajo':
+            food = AOABajosEnGrasa.objects.get(pk=nf.food_id)
+            diet.append(('Alimentos de Origen Animal Bajos en Grasa', food, nf))
+        elif nf.food_table == 'aoa_moderado':
+            food = AOAModeradosEnGrasa.objects.get(pk=nf.food_id)
+            diet.append(('Alimentos de Origen Animal Moderados en Grasa', food, nf))
+        elif nf.food_table == 'aoa_muy_bajo':
+            food = AOAMuyBajosEnGrasa.objects.get(pk=nf.food_id)
+            diet.append(('Alimentos de Origen Animal Muy Bajos en Grasa', food, nf))
+        elif nf.food_table == 'cereal_grasa':
+            food = Cerealescongrasa.objects.get(pk=nf.food_id)
+            diet.append(('Cereal con Grasa', food, nf))
+        elif nf.food_table == 'cereal':
+            food = Cerealessingrasa.objects.get(pk=nf.food_id)
+            diet.append(('Cereal sin grasa', food, nf))
+        elif nf.food_table == 'frutas':
+            food = Frutas.objects.get(pk=nf.food_id)
+            diet.append(('Frutas', food, nf))
+        elif nf.food_table == 'leguminosas':
+            food = Leguminosas.objects.get(pk=nf.food_id)
+            diet.append(('Leguminosas', food, nf))
+        elif nf.food_table == 'verduras':
+            food = Verduras.objects.get(pk=nf.food_id)
+            diet.append(('Verduras', food, nf))
+
+    for type, food, nf in diet:
+        total_calories += int(food.energiakcal)
 
     if nutrition.schedule == 'breakfast':
         title = 'Desayuno'
     elif nutrition.schedule == 'collation1':
         title = 'Colación 1'
     elif nutrition.schedule == 'meal':
-        title = 'COmida'
+        title = 'Comida'
     elif nutrition.schedule == 'collation2':
         title = 'Colación 2'
     else:
@@ -77,6 +81,7 @@ def detail(request, schedule, pk):
         'nutrition': nutrition,
         'diet': diet,
         'title': title,
+        'total_calories': total_calories,
     }
 
     return render(request, 'nutrition/detail.html', context)
@@ -170,8 +175,11 @@ def create(request, schedule=''):
 
                     Nutrition_Food.objects.create(nutrition=nutrition, food_id=food.id, food_table=key)
 
-            print(request.session.items())
-            request.session.flush()
+            for key in ['diet', 'schedule', 'aoa_alto', 'aoa_moderado', 'aoa_bajo', 'aoa_muy_bajo', 'cereal', 'cereal_grasa', 'frutas', 'leguminosas', 'verduras']:
+                try:
+                    del request.session[key]
+                except:
+                    continue
             return redirect(reverse_lazy('nutrition:detail', args=(nutrition.schedule, nutrition.pk)))
 
         letters = [letter for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
@@ -190,3 +198,76 @@ def create(request, schedule=''):
         return redirect(reverse_lazy('nutrition:create', args=(request.session['schedule'],)))
     else:        
         return render(request, 'nutrition/create.html', {})
+
+
+@login_required
+def update_food(request, key, nf_pk):
+    if request.method == 'POST':
+        for key, value in request.POST.items():
+            if key in ['aoa_alto', 'aoa_moderado', 'aoa_bajo', 'aoa_muy_bajo', 'cereal', 'cereal_grasa', 'frutas', 'leguminosas', 'verduras']:
+                if key == 'aoa_alto':
+                    food = AOAAltoEnGrasa.objects.get(alimentos=value)
+                elif key == 'aoa_bajo':
+                    food = AOABajosEnGrasa.objects.get(alimentos=value)
+                elif key == 'aoa_moderado':
+                    food = AOAModeradosEnGrasa.objects.get(alimentos=value)
+                elif key == 'aoa_muy_bajo':
+                    food = AOAMuyBajosEnGrasa.objects.get(alimentos=value)
+                elif key == 'cereal_grasa':
+                    food = Cerealescongrasa.objects.get(alimentos=value)
+                elif key == 'cereal':
+                    food = Cerealessingrasa.objects.get(alimentos=value)
+                elif key == 'frutas':
+                    food = Frutas.objects.get(alimentos=value)
+                elif key == 'leguminosas':
+                    food = Leguminosas.objects.get(alimentos=value)
+                elif key == 'verduras':
+                    food = Verduras.objects.get(alimentos=value)
+
+                nf = Nutrition_Food.objects.get(pk=nf_pk)
+                nf.food_id = food.pk
+                nf.save()
+
+                return redirect(referer)
+
+    if key == 'aoa_alto':
+        title = 'Alimentos de Origen Animal Altos en Grasa'
+        food = AOAAltoEnGrasa.objects.all()
+    elif key == 'aoa_bajo':
+        title = 'Alimentos de Origen Animal Bajos en Grasa'
+        food = AOABajosEnGrasa.objects.all()
+    elif key == 'aoa_moderado':
+        title = 'Alimentos de Origen Animal Moderados en Grasa'
+        food = AOAModeradosEnGrasa.objects.all()
+    elif key == 'aoa_muy_bajo':
+        title = 'Alimentos de Origen Animal Muy Bajos en Grasa'
+        food = AOAMuyBajosEnGrasa.objects.all()
+    elif key == 'cereal_grasa':
+        title = 'Cereales con Grasa'
+        food = Cerealescongrasa.objects.all()
+    elif key == 'cereal':
+        title = 'Cereales sin Grasa'
+        food = Cerealessingrasa.objects.all()
+    elif key == 'frutas':
+        title = 'Frutas'
+        food = Frutas.objects.all()
+    elif key == 'leguminosas':
+        title = 'Leguminosas'
+        food = Leguminosas.objects.all()
+    elif key == 'verduras':
+        title = 'Verduras'
+        food = Verduras.objects.all()
+
+    referer = request.META.get('HTTP_REFERER', '')
+
+    letters = [letter for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ']
+    context = {
+        'letters': letters,
+        'food': food,
+        'title': title,
+        'key': key,
+        'quantity': 1,
+        'referer': referer,
+    }
+
+    return render(request, 'nutrition/update.html', context)
