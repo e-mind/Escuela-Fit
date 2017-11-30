@@ -17,11 +17,14 @@
                     <li {{ nutrition }}>
                         <a class="page-scroll" href="{% url 'nutrition:list' %}">NUTRICIÓN</a>
                     </li>
+                    <li {{ record }}>
+                        <a class="page-scroll" href="{% url 'record:list' %}">REGISTRO FÍSICO</a>
+                    </li>
+                    <li {{ students }}>
+                        <a class="page-scroll" href="{% url 'students:detail' request.user.student.id %}">DATOS PERSONALES</a>
+                    </li>
                     <li {{ weather }}>
                         <a class="page-scroll" href="{% url 'weather' %}">CALIDAD DEL AIRE</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">CONTACTO</a>
                     </li>
                     <li>
                         <a href="{% url 'auth_logout' %}">

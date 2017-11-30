@@ -12,10 +12,13 @@ urlpatterns = [
 
     # APPS
     url(r'^admin/', admin.site.urls),
-    # url(r'^attendance/', include('apps.attendance.urls', namespace='attendance')),
+    url(r'^attendance/', include('apps.attendance.urls', namespace='attendance')),
+    url(r'^nutrition/', include('apps.nutrition.urls', namespace='nutrition')),
     url(r'^students/', include('apps.students.urls', namespace='students')),
+    url(r'^record/', include('apps.physical_record.urls', namespace='record')),
+
+    # 3rd party
     url(r'^accounts/activate/complete/$', activation_complete, name='registration_activation_complete'),
     url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^nutrition/', include('apps.nutrition.urls', namespace='nutrition')),
     url(r'^social/', include('social_django.urls', namespace='social'))
 ]

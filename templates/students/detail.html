@@ -31,7 +31,7 @@
         </div>
         <br /><br />
         <div class="col-xs-12 text-center">
-            <a href="{% url 'students:list' %}" class="btn btn-primary">Regresar</a>
+            {% if request.user.is_superuser %}<a href="{% url 'students:list' %}" class="btn btn-primary">Regresar</a>{% endif %}
             <a href="{% url 'students:update' object.id %}" class="btn btn-success">Modificar</a>
         </div>
     </div>

@@ -20,11 +20,12 @@
 {% block content %}
 	<div class="container">
 		<h1 class="text-center">GUÍAS DE NUTRICIÓN</h1><br><br>
-		{% for diet in diets %}
-			<a href="{% url 'nutrition:detail' diet.schedule diet.pk %}">
-				<h2>{{ diet.schedule }}</h2>
-				<p>{{ diet.create_date }}</p>
-			</a>
+        <a href="{% url 'nutrition:create' %}">Crear</a>
+        {% for diet in diets %}
+            <a href="{% url 'nutrition:detail' diet.schedule diet.pk %}">
+                <h2>{{ diet.schedule }}</h2>
+                <p>{{ diet.create_date }}</p>
+            </a>
         {% empty %}
             <p class="lead">Aún no tienes guías de nutrición.</p>
             <a href="{% url 'nutrition:create' %}">Obtener una guía de nutrición</a>

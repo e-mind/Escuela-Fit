@@ -9,7 +9,12 @@ from .models import *
 @login_required
 def list(request):
     student = request.user.student
-    diets = student.nutrition_set.all()
+    diets = []
+    for schedule in ['breakfast', 'collation1', 'meal', 'collation2', 'dinner']:
+        try:
+            diets.append(student.nutrition_set.filter(schedule=schedule)[0])
+        except:
+            continue
 
     context = {
         'diets': diets,

@@ -13,6 +13,9 @@ class Nutrition(models.Model):
     def __str__(self):
         return "{}".format(self.pk)
 
+    class Meta:
+        ordering = ['-create_date']
+
 
 class Nutrition_Food(models.Model):
     nutrition = models.ForeignKey(Nutrition, on_delete=models.CASCADE)

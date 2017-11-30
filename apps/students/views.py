@@ -15,7 +15,7 @@ class StudentCreate(CreateView):
     template_name = 'students/form.html'
     form_class = StudentForm
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         if hasattr(request.user, 'student'):
             pk = request.user.student.pk
             return redirect(reverse_lazy('students:detail', kwargs={'pk': pk}))
@@ -36,6 +36,12 @@ class StudentUpdate(UpdateView):
     template_name = 'students/form.html'
     form_class = StudentForm
 
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_superuser and request.user.student.pk != int(kwargs['pk']):
+            return redirect(reverse_lazy('students:detail', kwargs={'pk': request.user.student.pk})) 
+        else:
+            return super(StudentUpdate, self).get(request, *args, **kwargs)
+
     def form_valid(self, form):
         student = form.save()
         return redirect(reverse_lazy('students:detail', kwargs={'pk': student.pk}))
@@ -44,10 +50,22 @@ class StudentDetail(DetailView):
     model = Student
     template_name = 'students/detail.html'
 
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_superuser and request.user.student.pk != int(kwargs['pk']):
+            return redirect(reverse_lazy('students:detail', kwargs={'pk': request.user.student.pk})) 
+        else:
+            return super(StudentDetail, self).get(request, *args, **kwargs)
+
 class StudentDelete(DeleteView):
     model = Student
     template_name = 'students/delete.html'
     success_url = reverse_lazy('students:list')
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_superuser:
+            return redirect(reverse_lazy('students:detail', kwargs={'pk': request.user.student.pk})) 
+        else:
+            return super(StudentDelete, self).get(request, *args, **kwargs)
 
 @login_required
 def student_list(request):
@@ -75,4 +93,4 @@ def student_list(request):
 
         return render(request, 'students/list.html', context)
     else:
-        return HttpResponse(request.user.id)
+        return redirect(reverse_lazy('students:detail', args=(request.user.student.id,)))
