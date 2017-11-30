@@ -1,11 +1,11 @@
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
+from apps.students.models import Student
 from apps.students.filters import StudentFilter
 
 from .models import PhysicalRecord
@@ -17,12 +17,9 @@ class RecordCreate(CreateView):
     form_class = PhysicalRecordForm
     success_url = reverse_lazy('record:list')
 
-    def get_context_data(self, **kwargs):
-        context = super(PhysicalRecordCreate, self).get_context_data(**kwargs)
-        if self.kwargs['student']:
-            student = self.kwargs['student'].replace('/', '')
-            context['student'] = Student.objects.get(pk=student)
-        return context
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(initial={'student': kwargs['student']})
+        return render(request, self.template_name, {'form': form})
 
 class RecordUpdate(UpdateView):
     model = PhysicalRecord
@@ -30,16 +27,7 @@ class RecordUpdate(UpdateView):
     form_class = PhysicalRecordForm
     success_url = reverse_lazy('record:list')
 
-    def get_context_data(self, **kwargs):
-        context = super(PhysicalRecordUpdate, self).get_context_data(**kwargs)
-        context['student'] = PhysicalRecord.objects.get(pk=self.kwargs['pk']).student
-        return context
-
-class RecordDetail(DetailView):
-    model = PhysicalRecord
-    template_name = 'physical_record/detail.html'
-
-class RecordDelete(ListView):
+class RecordDelete(DeleteView):
     model = PhysicalRecord
     template_name = 'physical_record/delete.html'
     success_url = reverse_lazy('record:list')
@@ -67,4 +55,12 @@ def record_list(request):
         context = {
             'record': record,
         }
-        return render(request, 'physical_record/list.html', context)
+    else:
+        record = PhysicalRecord.objects.filter(student=request.user.student)
+
+        context = {
+            'record': record,
+        }
+
+
+    return render(request, 'physical_record/list.html', context)

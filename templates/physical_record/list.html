@@ -2,71 +2,37 @@
 
 {% block title %}Reporte{% endblock title %}
 
-{% block nav_alumnos %}active{% endblock %}
-
-{% block breadcrumb %}
-    <ul class="breadcrumb">
-        <li><a href="{% url 'alumnos:list' %}">Alumnos</a></li>
-        <li class="active">Datos Físicos</li>
-    </ul>
-{% endblock breadcrumb %}
+{% block css %}
+    <style>
+        .container {
+            margin-top: 80px;
+        }
+        .card {
+            border: 1px solid rgba(0,0,0,0.5);
+            box-shadow: 0 1px 2px solid rgba(0,0,0,0.9), 0 3px 2px solid rgba(0,0,0,0.9);
+            padding: 15px;
+        }
+    </style>
+{% endblock css %}
 
 {% block content %}
-    <!--<h4>Filtrar por:</h4>
-        <form method="get">
-            <p>
-                Boleta: &nbsp {{ filter.form.boleta }} &nbsp
-                Nombre: &nbsp {{ filter.form.nombre }} &nbsp
-                Apellido Paterno: &nbsp {{ filter.form.apellido_paterno }} &nbsp
-                Apellido Materno: &nbsp {{ filter.form.apellido_materno }} &nbsp;&nbsp;
-                <button class="btn btn-success" type="submit">Filtrar</button>
-            </p>
-        </form>-->
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th class="text-center"><p>#</p></th>
-                <th class="text-center"><p>Nombre</p></th>
-                <th class="text-center">Estatura<br />(m)</th>
-                <th class="text-center">Peso<br />(kg)</th>
-                <th class="text-center">Circunferencia de la cintura<br />(cm)</th>
-                <th class="text-center">Frecuencia cardiaca en reposo<br />(latidos / minuto)</th>
-                <th class="text-center">Presión arterial<br />(mm Hg)</th>
-                <th class="text-center"><p>Fecha</p></th>
-                <th class="text-center info"><p>Acciones</p></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for alumno in alumnos %}
-                <tr>
-                    <td class="text-center">{{ forloop.counter }}</td>
-                    <td class="text-center"><a href="{% url 'alumnos:detail_fisicos' alumno.id %}" class="btn btn-success btn-xs" title="Ver alumno">{{ alumno.alumno|title }}</a></td>
-                    <td class="text-center">{{ alumno.estatura }}</td>
-                    <td class="text-center">{{ alumno.peso }}</td>
-                    <td class="text-center">{{ alumno.circunferencia_cintura }}</td>
-                    <td class="text-center">{{ alumno.frecuencia_reposo }}</td>
-                    <td class="text-center">{{ alumno.presion_arterial }}</td>
-                    <td class="text-center">{{ alumno.fecha }}</td>
-                    <td class="text-center">    
-                        <a href="{% url 'alumnos:update_fisicos' alumno.id %}" title="Editar">
-                            <i class="icon-edit color-blue fs-15"></i>
-                        </a>
-                        <a href="{% url 'alumnos:delete_fisicos' alumno.id %}" title="Borrar">
-                            <i class="icon-delete color-red fs-15"></i>
-                        </a>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr class="active text-center lead"><td colspan="16">No hay datos.</td></tr>
-            {% endfor %}
-        </tbody>
-    </table> 
-    <ul class="pager">
-        {% if alumnos.has_previous %}
-            <li><a href="?page={{ alumnos.previous_page_number }}">&larr; Anterior</a></li>
-        {% endif %}
-        {% if alumnos.has_next %}
-            <li><a href="?page={{ alumnos.next_page_number }}">Siguiente &rarr;</a></li>
-        {% endif %}
-    </ul>
+    <div class="container">
+        <h1 class="text-center">REGISTROS FÍSICOS</h1>
+        {% if record %}<a href="{% url 'record:create' request.user.student.pk %}">Registrar datos</a>{% endif %}<br><br>
+        {% for r in record %}
+            <div class="card">
+                <p class="lead">{{ r.date }} <a href="{% url 'record:update' r.pk %}">Editar</a>  <a href="{% url 'record:delete' r.pk %}">Eliminar</a></p> 
+                <ul>
+                    <li>Estatura (m): <b>{{ r.height }}</b></li>
+                    <li>Peso (kg): <b>{{ r.weight }}</b></li>
+                    <li>Circunferencia cintura (cm): <b>{{ r.waist_circumference }}</b></li>
+                    <li>Frecuencia cardiaca (latidos/minuto): <b>{{ r.resting_heart_rate }}</b></li>
+                    <li>Presión arterial (mmHg): <b>{{ r.blood_pressure }}</b></li>
+                </ul>
+            </div>
+        {% empty %}
+            <p class="lead">Aún no tienes registros de tus datos físicos.</p>
+            <a href="{% url 'record:create' request.user.student.pk %}">Regístralos</a>
+        {% endfor %}
+    </div>
 {% endblock content %}
