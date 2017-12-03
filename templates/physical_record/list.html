@@ -23,11 +23,11 @@
             <div class="card">
                 <p class="lead">{{ r.date }} <a href="{% url 'record:update' r.pk %}">Editar</a>  <a href="{% url 'record:delete' r.pk %}">Eliminar</a></p> 
                 <ul>
-                    <li>Estatura (m): <b>{{ r.height }}</b></li>
-                    <li>Peso (kg): <b>{{ r.weight }}</b></li>
-                    <li>Circunferencia cintura (cm): <b>{{ r.waist_circumference }}</b></li>
-                    <li>Frecuencia cardiaca (latidos/minuto): <b>{{ r.resting_heart_rate }}</b></li>
-                    <li>Presión arterial (mmHg): <b>{{ r.blood_pressure }}</b></li>
+                    <li>Estatura (m): <b>{% if r.height %}{{ r.height }}{% else %}---{% endif %}</b></li>
+                    <li>Peso (kg): <b>{% if r.weight %}{{ r.weight }}{% else %}---{% endif %}</b></li>
+                    <li>Circunferencia cintura (cm): <b>{% if r.waist_circumference %}{{ r.waist_circumference }}{% else %}---{% endif %}</b></li>
+                    <li>Frecuencia cardiaca (latidos/minuto): <b>{% if r.resting_heart_rate %}{{ r.resting_heart_rate }}{% else %}---{% endif %}</b></li>
+                    <li>Presión arterial (mmHg): <b>{% if r.blood_pressure %}{{ r.blood_pressure }}{% else %}---{% endif %}</b></li>
                 </ul>
             </div>
         {% empty %}

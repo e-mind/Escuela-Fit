@@ -38,7 +38,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">REGISTRO DE TUS AVANCES, {{ request.user.first_name|title }}</h2>
+                    <h2 class="section-heading">REGISTRO DE TUS AVANCES</h2>
                     <hr class="primary">
                     <h4>Recuerda que es importante tu constante asistencia para obtener buenos resultados.</h4>
                     <div class="container"></div>
@@ -66,12 +66,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">AVANCES DE TUS REGISTRO DURANTE EL SEMESTRE</h2>
+                    <h2 class="section-heading">AVANCES DE TUS REGISTROS</h2>
                     <hr class="primary">
                     <div class="container"></div>
                     <br>
                     <br>
-                    <a href="#asistencia" class="btn btn-primary btn-xl page-scroll btn-center">Consulta tu Asistencia</a>
+                    <a href="{% url 'record:create' request.user.student.pk %}" class="btn btn-primary btn-xl page-scroll btn-center">Registra tus datos físicos</a>
                 </div>
             </div>
         </div>
@@ -111,4 +111,49 @@
 {% block javascript %}
     <script src="{% static 'js/graphics/utils.js' %}"></script>
     <script src="{% static 'js/graphics/render.js' %}"></script>    
+    <script>
+        {% for graph in data_graphs %}
+            var ctx = document.getElementById('{{ graph.id }}').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {{ graph.labels|safe }},
+                    datasets: [{
+                        label: '{{ graph.label }}',
+                        backgroundColor: '{{ graph.backgroundColor }}',
+                        borderColor: '{{ graph.borderColor }}',
+                        data: {{ graph.data }}
+                    }]
+                },
+                 options: {
+                    responsive:true,
+                    title: {
+                        display: true,
+                        text: '{{ graph.text }}'
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: 'black',
+                            fontStyle: 'cursive',
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                }
+            });
+        {% endfor %}
+    </script>
 {% endblock javascript %}

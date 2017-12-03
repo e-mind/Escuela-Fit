@@ -14,6 +14,6 @@
       <p>{% trans "Olvidaste tu contraseña" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reseteala" %}</a>!</p>
       <p>{% trans "No tienes una cuenta" %}? <a href="{% url 'registration_register' %}">{% trans "Regístrate" %}</a>!</p>
       <a href="{% url 'social:begin' 'facebook' %}">Iniciar sesión con Facebook</a>
-      <a href="{% url 'social:begin' 'twitter' %}">Iniciar sesión con Twitter</a>
+      <!-- <a href="{% url 'social:begin' 'twitter' %}">Iniciar sesión con Twitter</a> -->
   </div>    
 {% endblock %}

@@ -33,7 +33,7 @@ class Student(models.Model):
     birthday = models.DateField("Fecha de nacimiento")
     telephone = models.CharField("Teléfono", max_length=10)
     email = models.EmailField("Email", max_length=80)
-    card_code = models.CharField("Código Tarjeta", max_length=11)
+    card_code = models.CharField("Código Tarjeta", max_length=11, null=True, blank=True)
     user = models.OneToOneField(User, null=True)
 
     def __str__(self):

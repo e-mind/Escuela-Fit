@@ -71,14 +71,15 @@ class StudentForm(forms.ModelForm):
 
     def clean_card_code(self):
         card_code = self.cleaned_data.get("card_code")
-        card_code = card_code.replace(' ', '')
+        if card_code:
+            card_code = card_code.replace(' ', '')
 
-        if len(card_code) != 8:
-            raise forms.ValidationError("El código debe ser de 8 caracteres")
+            if len(card_code) != 8:
+                raise forms.ValidationError("El código debe ser de 8 caracteres")
 
-        card_code = card_code[:2] + " " + card_code[2:4] + " " + card_code[4:6] + " " + card_code[6:]
-        card_code = card_code.upper()
+            card_code = card_code[:2] + " " + card_code[2:4] + " " + card_code[4:6] + " " + card_code[6:]
+            card_code = card_code.upper()
 
-        return card_code
-
-
+            return card_code
+        else:
+            return None

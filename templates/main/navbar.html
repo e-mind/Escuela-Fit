@@ -11,21 +11,23 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 {% if request.user.is_authenticated %}
-                    <li {{ profile }}>
-                        <a class="page-scroll" href="{% url 'profile' %}">PERFIL</a>
-                    </li>
-                    <li {{ nutrition }}>
-                        <a class="page-scroll" href="{% url 'nutrition:list' %}">NUTRICIÓN</a>
-                    </li>
-                    <li {{ record }}>
-                        <a class="page-scroll" href="{% url 'record:list' %}">REGISTRO FÍSICO</a>
-                    </li>
-                    <li {{ students }}>
-                        <a class="page-scroll" href="{% url 'students:detail' request.user.student.id %}">DATOS PERSONALES</a>
-                    </li>
-                    <li {{ weather }}>
-                        <a class="page-scroll" href="{% url 'weather' %}">CALIDAD DEL AIRE</a>
-                    </li>
+                    {% if request.user.student %}
+                        <li {{ profile }}>
+                            <a class="page-scroll" href="{% url 'profile' %}">PERFIL</a>
+                        </li>
+                        <li {{ nutrition }}>
+                            <a class="page-scroll" href="{% url 'nutrition:list' %}">NUTRICIÓN</a>
+                        </li>
+                        <li {{ record }}>
+                            <a class="page-scroll" href="{% url 'record:list' %}">REGISTRO FÍSICO</a>
+                        </li>
+                        <li {{ students }}>
+                            <a class="page-scroll" href="{% url 'students:detail' request.user.student.pk %}">DATOS PERSONALES</a>
+                        </li>
+                        <li {{ weather }}>
+                            <a class="page-scroll" href="{% url 'weather' %}">CALIDAD DEL AIRE</a>
+                        </li>
+                    {% endif %}
                     <li>
                         <a href="{% url 'auth_logout' %}">
                         <span class="fa fa-power-off fa-2x text-primary sr-icons" style="margin-right: 10px;" aria-hidden="true">

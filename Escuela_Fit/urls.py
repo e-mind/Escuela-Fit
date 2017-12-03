@@ -2,12 +2,12 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
 
-from .views import weather, index, activation_complete
+from .views import weather, index, activation_complete, profile
 
 urlpatterns = [
 	# MAIN
     url(r'^$', index, name='index'),
-    url(r'^profile/$', TemplateView.as_view(template_name='main/profile.html'), name='profile'),
+    url(r'^profile/$', profile, name='profile'),
     url(r'^weather/$', weather, name='weather'),
 
     # APPS

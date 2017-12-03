@@ -3,20 +3,20 @@
 
 {% block title %}Formulario{% endblock title %}
 
-{% block nav_alumnos %}active{% endblock %}
-
-{% block breadcrumb %}
-    <ul class="breadcrumb">
-        <li><a href="{% url 'students:list' %}">Alumnos</a></li>
-        <li class="active">Formulario</li>
-    </ul>
-{% endblock breadcrumb %}
+{% block css %}
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+{% endblock css %}
 
 {% block content %}
     <div class="container">
+        <h1 class="text-center">Por favor rellena los siguientes datos.</h1><br>
         <form action="" method="post" class="form-horizontal">
             <fieldset>
-                <legend class="text-center">Datos Alumno</legend>
+                <legend class="text-center lead">Datos Alumno</legend>
                 {% csrf_token %}
                 <!-- {% for field in form %}
                     <div class="form-group">
@@ -28,9 +28,12 @@
                 {% endfor %} -->
                 {{ form|crispy }}
                 <br />
+                <p>* Campos obligatorios</p>
                 <div class="text-center">
-                    <a href="{% url 'students:list' %}" class="btn btn-default">Cancelar</a>
-                    <input type="submit" value="Guardar" class="btn btn-success" />
+                    {% if request.user.student %}
+                        <a href="{% url 'students:list' %}" class="btn btn-primary">Cancelar</a>
+                    {% endif %}
+                    <input type="submit" value="Guardar" class="btn btn-success btn-lg" />
                 </div>
             </fieldset>
         </form>
