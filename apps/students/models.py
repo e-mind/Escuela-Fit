@@ -21,19 +21,25 @@ SEMESTERS = (
     ('8', '8'),
 )
 
+GENDER = (
+    ('H', 'Hombre'),
+    ('M', 'Mujer'),
+)
+
 
 class Student(models.Model):
-    student_number = models.CharField("Boleta", max_length=10, unique=True)
-    career = models.CharField("Carrera", max_length=2, choices=CAREERS)
-    semester = models.CharField("Semestre", max_length=1, choices=SEMESTERS)
-    name = models.CharField("Nombre", max_length=30)
-    first_surname = models.CharField("Apellido Paterno", max_length=30)
-    second_surname = models.CharField("Apellido Materno", max_length=30)
-    age = models.PositiveSmallIntegerField("Edad")
-    birthday = models.DateField("Fecha de nacimiento")
-    telephone = models.CharField("Teléfono", max_length=10)
-    email = models.EmailField("Email", max_length=80)
-    card_code = models.CharField("Código Tarjeta", max_length=11, null=True, blank=True)
+    student_number = models.CharField("boleta", max_length=10, unique=True)
+    career = models.CharField("carrera", max_length=2, choices=CAREERS)
+    semester = models.CharField("semestre", max_length=1, choices=SEMESTERS)
+    gender = models.CharField("género", max_length=1, choices=GENDER)
+    name = models.CharField("nombre", max_length=30)
+    first_surname = models.CharField("apellido paterno", max_length=30)
+    second_surname = models.CharField("apellido materno", max_length=30)
+    age = models.PositiveSmallIntegerField("edad")
+    birthday = models.DateField("fecha de nacimiento")
+    telephone = models.CharField("teléfono", max_length=10)
+    email = models.EmailField("email", max_length=80)
+    card_code = models.CharField("código tarjeta", max_length=11, null=True, blank=True)
     user = models.OneToOneField(User, null=True)
 
     def __str__(self):

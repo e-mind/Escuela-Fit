@@ -19,6 +19,7 @@
             <p class="col-sm-6"><b>Boleta:</b></p><p class="col-sm-6">{{ object.student_number }}</p>
             <p class="col-sm-6"><b>Carrera:</b></p><p class="col-sm-6">{{ object.get_career_display }}</p>
             <p class="col-sm-6"><b>Semestre:</b></p><p class="col-sm-6">{{ object.semester }}</p>
+            <p class="col-sm-6"><b>Género:</b></p><p class="col-sm-6">{{ object.get_gender_display }}</p>
             <p class="col-sm-6"><b>Nombre:</b></p><p class="col-sm-6">{{ object.name|title }}</p>
             <p class="col-sm-6"><b>Apellido Paterno:</b></p><p class="col-sm-6">{{ object.first_surname|title }}</p>
             <p class="col-sm-6"><b>Apellido Materno:</b></p><p class="col-sm-6">{{ object.second_surname|title }}</p>
@@ -26,7 +27,7 @@
             <p class="col-sm-6"><b>Fecha de nacimiento:</b></p><p class="col-sm-6">{{ object.birthday }}</p>
             <p class="col-sm-6"><b>Teléfono:</b></p><p class="col-sm-6">{{ object.telephone }}</p>
             <p class="col-sm-6"><b>Email:</b></p><p class="col-sm-6">{{ object.email }}</p>
-            <p class="col-sm-6"><b>Código Tarjeta:</b></p><p class="col-sm-6">{{ object.card_code }}</p>
+            <p class="col-sm-6"><b>Código Tarjeta:</b></p><p class="col-sm-6">{% if object.card_code %}{{ object.card_code }}{% else %}----{% endif %}</p>
             <div class="clearfix visible-sm visible-md visible-lg"></div>
         </div>
         <br /><br />

@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.utils.http import is_safe_url
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -19,7 +20,20 @@ class RecordCreate(CreateView):
 
     def get(self, request, *args, **kwargs):
         form = self.form_class(initial={'student': kwargs['student']})
-        return render(request, self.template_name, {'form': form})
+        next = reverse_lazy('nutrition:create') if self.request.GET.get('next') == 'nutrition' else ''
+        return render(request, self.template_name, {'form': form, 'next': next})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            redirect_to = request.POST.get('next', '')
+            if redirect_to and is_safe_url(url=redirect_to, host=request.get_host()):
+                return redirect(redirect_to)
+            else:
+                return redirect(reverse_lazy('record:list'))
+        
+        return render(request, self.template_name, {'form': form, 'next': request.POST.get('next','')})
 
 class RecordUpdate(UpdateView):
     model = PhysicalRecord

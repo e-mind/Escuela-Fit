@@ -68,6 +68,9 @@
         {% endspaceless %}
     {% else %}
     <div class="text-center">
+        <p class="lead">Tu requerimiento energético por día es de aproximadamente <b>{{ bmr }}</b> calorías.</p>
+        <p class="lead">Da click en algún horario de comida y a continuación ve seleccionando
+        la cantidad de alimentos que se te indiquen de cada grupo alimenticio.</p>
         <br><br>
         <a href="{% url 'nutrition:create' 'breakfast' %}" class="btn btn-primary btn-lg">Desayuno</a><br><br>
         <a href="{% url 'nutrition:create' 'collation1' %}" class="btn btn-primary btn-lg">Colación 1</a><br><br>

@@ -115,7 +115,7 @@ DEFAULT_FROM_EMAIL = os.getenv('EMAIL_USER', '')
 # Django Registration Redux
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = '/profile/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/accounts/logout/'
 LOGOUT_REDIRECT_URL = '/'
