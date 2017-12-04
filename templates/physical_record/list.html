@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block title %}Reporte{% endblock title %}
 
@@ -8,14 +9,15 @@
             margin-top: 80px;
         }
         .card {
-            border: 1px solid rgba(0,0,0,0.5);
-            box-shadow: 0 1px 2px solid rgba(0,0,0,0.9), 0 3px 2px solid rgba(0,0,0,0.9);
+            border: 1px solid rgba(0,0,0,0.3);
+            box-shadow: 0 3px 3px rgba(0,0,0,0.8);
             padding: 15px;
         }
     </style>
 {% endblock css %}
 
 {% block content %}
+    <header style="background-image: url({% static 'img/health.jpg' %})"></header>
     <div class="container">
         <h1 class="text-center">REGISTROS FÍSICOS</h1>
         {% if record %}<a href="{% url 'record:create' request.user.student.pk %}">Registrar datos</a>{% endif %}<br><br>

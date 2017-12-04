@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block title %}Formulario{% endblock title %}
 
 {% block content %}
+    <header style="background-image: url({% static 'img/health.jpg' %})"></header><br><br>
     <div class="container">
-        <p class="lead">Por favor rellena los siguientes campos.</p>
+        <div class="text-center"><p class="lead">Por favor rellena los siguientes campos.</p></div>
         <form action="" method="post" class="form-horizontal">
             <fieldset>
                 <legend class="text-center">Datos Físicos</legend>
@@ -27,8 +29,8 @@
                 {% endfor %}
                 <input type="hidden" name="next" value="{{ next }}" />
                 <br />
-                <p>* Campos obligatorios</p>
                 <div class="text-center">
+                    <p>* Campos obligatorios</p>
                     <a href="{% url 'record:list' %}" class="btn btn-primary">Cancelar</a>
                     <input type="submit" value="Guardar" class="btn btn-success" />
                 </div>
