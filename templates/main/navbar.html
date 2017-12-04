@@ -37,6 +37,20 @@
                         </span>
                         </a>
                     </li>
+                {% elif request.path == '/accounts/login/' %}
+                    <li>
+                        <a class="page-scroll" href="{% url 'registration_register' %}">REGÍSTRATE</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">CONTACTO</a>
+                    </li>
+                {% elif request.path == '/accounts/register/' %}
+                    <li>
+                        <a class="page-scroll" href="{% url 'auth_login' %}">INICIA SESIÓN</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">CONTACTO</a>
+                    </li>
                 {% else %}
                     <li>
                         <a class="page-scroll" href="#about">Acerca de Escuela FIT</a>
@@ -48,7 +62,7 @@
                         <a class="page-scroll" href="#portfolio">RECOMENDACIONES DE NUTRICIÓN</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#star">¡COMIENZA YA!</a>
+                        <a class="page-scroll" href="{% url 'registration_register' %}">¡COMIENZA YA!</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">CONTACTO</a>

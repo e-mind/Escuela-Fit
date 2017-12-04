@@ -1,16 +1,48 @@
 {% extends "base.html" %}
-{% load i18n crispy_forms_tags %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+  <style>
+    .btn-social {
+      display: inline-block;
+      padding: 10px;
+      background-color: #3b5999;
+      color: #fff;
+      border-radius: 5px
+    }
+    .btn-social:hover {
+      background-color: #0077B5;
+      color: #fff !important;
+      text-decoration: none !important;
+    }
+    form {
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 10px;
+        padding: 20px;
+        color: #fff;
+    }
+    .help-block {
+        color: #fff;
+    }
+  </style>
+{% endblock css %}
 
 {% block content %}
-	<div class="container">
-		<form method="post" action=".">
-		  {% csrf_token %}
-		  {{ form|crispy }}
+  <header style="min-height: 100vh;">
+      <div class="header-content">
+          <div class="header-content-inner">
+              <h1 id="homeHeading">Registro</h1>
+              <hr>
+          </div>
+          <div class="container">
+            <form method="post" action="." class="col-md-6 col-md-offset-3">
+              {% csrf_token %}
+              {{ form|crispy }}
 
-		  <input type="submit" value="{% trans 'Registrar' %}" class="btn btn-primary" />
-		</form>
-
-		<a href="{% url 'social:begin' 'facebook' %}">Iniciar sesión con Facebook</a><br>
-	    <!-- <a href="{% url 'social:begin' 'twitter' %}">Iniciar sesión con Twitter</a> -->
-	</div>
-{% endblock content %}
+              <input type="submit" value="Registrar" class="btn btn-primary btn-lg" />&nbsp;&nbsp;ó&nbsp;&nbsp;
+              <a href="{% url 'social:begin' 'facebook' %}" class="btn-social"><span class="fa fa-facebook"></span>&nbsp;&nbsp;&nbsp;&nbsp;Iniciar sesión</a>
+            </form>
+        </div>
+      </div>
+  </header>
+{% endblock %}

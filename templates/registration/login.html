@@ -1,19 +1,43 @@
 {% extends "base.html" %}
-{% load i18n crispy_forms_tags %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+  <style>
+    .btn-social {
+      display: inline-block;
+      padding: 10px;
+      background-color: #3b5999;
+      color: #fff;
+      border-radius: 5px
+    }
+    .btn-social:hover {
+      background-color: #0077B5;
+      color: #fff !important;
+      text-decoration: none !important;
+    }
+  </style>
+{% endblock css %}
 
 {% block content %}
-  <div class="container">
-      <form method="post" action=".">
-        {% csrf_token %}
-        {{ form|crispy }}
+  <header style="height: 100vh;">
+      <div class="header-content">
+          <div class="header-content-inner">
+              <h1 id="homeHeading">Iniciar Sesión</h1>
+              <hr>
+          </div>
+          <div class="container">
+            <form method="post" action="." class="col-md-6">
+              {% csrf_token %}
+              {{ form|crispy }}
 
-        <input type="submit" value="{% trans 'Entrar' %}" />
-        <input type="hidden" name="next" value="{{ next }}" />
-      </form>
-
-      <p>{% trans "Olvidaste tu contraseña" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reseteala" %}</a>!</p>
-      <p>{% trans "No tienes una cuenta" %}? <a href="{% url 'registration_register' %}">{% trans "Regístrate" %}</a>!</p>
-      <a href="{% url 'social:begin' 'facebook' %}">Iniciar sesión con Facebook</a>
-      <!-- <a href="{% url 'social:begin' 'twitter' %}">Iniciar sesión con Twitter</a> -->
-  </div>    
+              <input type="submit" value="Entrar" class="btn btn-primary btn-lg" />
+              <input type="hidden" name="next" value="{{ next }}" />&nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="{% url 'social:begin' 'facebook' %}" class="btn-social"><span class="fa fa-facebook"></span>&nbsp;&nbsp;&nbsp;&nbsp;Iniciar sesión</a>
+            </form>
+            <br><br>
+            <p>¿Olvidaste tu contraseña? <a href="{% url 'auth_password_reset' %}" class="btn btn-info">¡Reséteala!</a></p>
+            <p>¿No tienes una cuenta? <a href="{% url 'registration_register' %}" class="btn btn-info">¡Regístrate!</a></p>
+        </div>
+      </div>
+  </header>
 {% endblock %}

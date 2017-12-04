@@ -1,4 +1,27 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <header style="min-height: 100vh;">
+      <div class="header-content">
+          <div class="header-content-inner">
+              <h1 id="homeHeading">Registro</h1>
+              <hr>
+          </div>
+          <div class="container">
+            <form method="post" action="." class="col-md-6 col-md-offset-3">
+              <p>Tu cuenta ha sido activada</p>
+
+              <input type="submit" value="Registrar" class="btn btn-primary btn-lg" />&nbsp;&nbsp;ó&nbsp;&nbsp;
+              <a href="{% url 'social:begin' 'facebook' %}" class="btn-social"><span class="fa fa-facebook"></span>&nbsp;&nbsp;&nbsp;&nbsp;Iniciar sesión</a>
+            </form>
+        </div>
+      </div>
+  </header>
+{% endblock %}
+
+
+{% extends "base.html" %}
 
 {% block content %}
     <p>Tu cuenta ha sido activada</p>
