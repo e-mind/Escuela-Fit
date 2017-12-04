@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import DeleteView
 
 from apps.physical_record.models import PhysicalRecord
 from .models import *
@@ -347,3 +348,8 @@ def update_food(request, key, nf_pk):
     }
 
     return render(request, 'nutrition/update.html', context)
+
+class NutritionDelete(DeleteView):
+    model = Nutrition
+    template_name = "nutrition/delete.html"
+    success_url = reverse_lazy('nutrition:list')

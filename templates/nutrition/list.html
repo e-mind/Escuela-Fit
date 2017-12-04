@@ -24,9 +24,14 @@
             <a href="{% url 'nutrition:create' %}">Crear</a>
             {% for diet in diets %}
                 <a href="{% url 'nutrition:detail' diet.schedule diet.pk %}">
-                    <h2>{{ diet.schedule }}</h2>
-                    <p>{{ diet.create_date }}</p>
+                    {% if diet.schedule == 'breakfast' %} <h2>Desayuno</h2>
+                    {% elif diet.schedule == 'collation1' %} <h2>Colación 1</h2>
+                    {% elif diet.schedule == 'meal' %} <h2>Commida</h2>
+                    {% elif diet.schedule == 'collation2' %} <h2>Colación 2</h2>
+                    {% elif diet.schedule == 'dinner' %} <h2>Cena</h2>
+                    {% endif %}
                 </a>
+                <p>{{ diet.create_date }} <a href="{% url 'nutrition:delete' diet.pk %}">Eliminar</a></p>
             {% endfor %}
         {% else %}
             <p class="lead">Aún no tienes guías de nutrición.</p>

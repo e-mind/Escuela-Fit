@@ -26,7 +26,9 @@
     <div class="container">
     {% if schedule %}
         {% spaceless %}
-                <h1>{{ title }} <i>(Selecciona {{ quantity }})</i></h1><hr class="hr-tab">
+                <h1>{{ title }} <i>(Selecciona {{ quantity }})</i></h1>
+                <p>Puedes buscar entre las letras el alimento de tu preferencia.</p>
+                <hr class="hr-tab">
 
                 <ul class="nav nav-tabs">
                     {% for letter in letters %}
@@ -61,8 +63,8 @@
                                 </div>
                             {% endfor %}
                     </div>
-                    <a href="{% url 'nutrition:cancel' %}" class="btn btn-warning">Cancelar</a>
-                    <input type="submit" value="Seleccionar" class="btn btn-primary" />
+                    <a href="{% url 'nutrition:cancel' %}" class="btn btn-primary">Cancelar</a>
+                    <input type="submit" value="Seleccionar" class="btn btn-success" />
                 </form><br>
                 <div id="selected"></div>
         {% endspaceless %}
@@ -98,7 +100,7 @@
             id_check = this.id;
             id_check = id_check.replace(/\s/g, '_');
             if (this.checked) {
-                $('#selected').append('<button id="'+ id_check +'" onclick="remove(this);" class="btn btn-info">' + this.value + '</button>');
+                $('#selected').append(' <button id="'+ id_check +'" onclick="remove(this);" class="btn btn-info">' + this.value + '&nbsp;&nbsp;&nbsp;&nbsp;&#10006;</button>');
             } else {
                 id_check = 'button#' + id_check;
                 $(id_check).remove();
