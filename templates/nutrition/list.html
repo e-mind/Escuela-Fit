@@ -18,21 +18,34 @@
 {% endblock css %}
 
 {% block content %}
+    <header style="background-image: url({% static 'img/nutrition.jpg' %})">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">
+                    GUÍAS DE NUTRICIÓN
+                </h1>
+                <hr>
+            </div>
+        </div>
+    </header>
 	<div class="container">
-		<h1 class="text-center">GUÍAS DE NUTRICIÓN</h1><br><br>
         {% if diets %}
-            <a href="{% url 'nutrition:create' %}">Crear</a>
-            {% for diet in diets %}
-                <a href="{% url 'nutrition:detail' diet.schedule diet.pk %}">
-                    {% if diet.schedule == 'breakfast' %} <h2>Desayuno</h2>
-                    {% elif diet.schedule == 'collation1' %} <h2>Colación 1</h2>
-                    {% elif diet.schedule == 'meal' %} <h2>Commida</h2>
-                    {% elif diet.schedule == 'collation2' %} <h2>Colación 2</h2>
-                    {% elif diet.schedule == 'dinner' %} <h2>Cena</h2>
-                    {% endif %}
-                </a>
-                <p>{{ diet.create_date }} <a href="{% url 'nutrition:delete' diet.pk %}">Eliminar</a></p>
-            {% endfor %}
+            <a href="{% url 'nutrition:create' %}">Obtener una guía de nutrición.</a>
+            <ul>
+                {% for diet in diets %}
+                    <li>
+                        <a href="{% url 'nutrition:detail' diet.schedule diet.pk %}">
+                            {% if diet.schedule == 'breakfast' %} <h2>Desayuno</h2>
+                            {% elif diet.schedule == 'collation1' %} <h2>Colación 1</h2>
+                            {% elif diet.schedule == 'meal' %} <h2>Commida</h2>
+                            {% elif diet.schedule == 'collation2' %} <h2>Colación 2</h2>
+                            {% elif diet.schedule == 'dinner' %} <h2>Cena</h2>
+                            {% endif %}
+                        </a>
+                        <p>{{ diet.create_date }} <a href="{% url 'nutrition:delete' diet.pk %}">Eliminar</a></p>
+                    </li>
+                {% endfor %}
+            </ul>
         {% else %}
             <p class="lead">Aún no tienes guías de nutrición.</p>
             <a href="{% url 'nutrition:create' %}">Obtener una guía de nutrición</a>

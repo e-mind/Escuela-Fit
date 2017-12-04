@@ -11,14 +11,66 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+
+        * {transition: all 0.3s;}
+
+        input[type="radio"], input[type="checkbox"] {
+          display: none;
+        }
+
+        label {
+          padding: 5px 15px 5px 51px;
+          display: inline-block;
+          position: relative;
+          cursor: pointer;
+          font-size: 1.1em;
+          color: orange;
+        }
+
+        label::before {
+          content: "";
+          width: 17px;
+          height: 17px;
+          display: inline-block;
+          border: 3px solid #F89406;
+          position: absolute;
+          left: 17px;
+          top: 4px;
+          border-radius: 5px;
+        }
+
+        label:hover {
+          background-color: #F89406;
+          color: white;
+          border-radius: 10px;
+        }
+
+        label:hover::before {
+          border: 3px solid #fff;
+        }
+
+        input[type="radio"]:checked + label,
+        input[type="checkbox"]:checked + label {
+          padding: 5px 15px;
+          background-color: #F89406;
+          color: white;
+          border-radius: 10px;
+        }
+
+        input[type="radio"]:checked + label:before,
+        input[type="checkbox"]:checked + label:before{
+            display: none;
+        }
     </style>
 {% endblock css %}
 
 {% block content %}
-    <header>
+    <header style="background-image: url({% static 'img/nutrition.jpg' %})">
         <div class="header-content">
             <div class="header-content-inner">
-                <h1 id="homeHeading">GUIA DE NUTRICIÓN</br></h1>
+                <h1 id="homeHeading">
+                    GUÍA DE NUTRICIÓN
+                </h1>
                 <hr>
             </div>
         </div>
@@ -56,10 +108,16 @@
                             </div>
                         {% endfor %}
                 </div>
-                <a href="{{ referer }}" class="btn btn-warning">Cancelar</a>
-                <input type="submit" value="Seleccionar" class="btn btn-primary" />
+                <br><br>
+                    <div>
+                        <p class="lead">Alimentos seleccionados: <span id="selected"></span></p>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <a href="{{ referer }}" class="btn btn-primary">Cancelar</a>&nbsp;&nbsp;
+                        <input type="submit" value="Seleccionar" class="btn btn-success" />
+                    </div>
             </form><br>
-            <div id="selected"></div>
         {% endspaceless %}
     </div>
 {% endblock content %}

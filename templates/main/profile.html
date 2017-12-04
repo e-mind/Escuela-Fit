@@ -27,7 +27,7 @@
 {% endblock css %}
 
 {% block content %}
-    <header style="background-image: url({% static 'img/profile.jpg' %}); max-width:100%;width:100%;">
+    <header style="background-image: url({% static 'img/profile.jpg' %}); height:100%;">
         <div class="header-content">
             <div class="header-content-inner">
             </div> 	
@@ -46,7 +46,6 @@
                     <br>
                 </div>
                  <div class="col-lg-8 col-lg-offset-2 text-center">
-                   <a href="#registros" class="btn btn-primary btn-xl page-scroll btn-center">Consulta tus Registros</a> &nbsp;
                    <a href="{% url 'nutrition:list' %}" class="btn btn-primary btn-xl page-scroll btn-center">CONSULTAR MI DIETA</a>
                 </div>
             </div>
@@ -54,11 +53,11 @@
         <br>
         <br>
     <!---ATTENDANCE GRAPH-->
-        <div class="wrapper col-lg-offset-2" id="asistencia">
+        <!-- <div class="wrapper col-lg-offset-2" id="asistencia">
             <div class="chart-container  col-xs-offset-12" style=" width: 80%;">
                 <canvas id="attendanceGraph"></canvas>
             </div>      
-        </div>
+        </div> -->
         
     </section>
 

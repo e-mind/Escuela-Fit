@@ -14,10 +14,23 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+        h1 {
+            margin-top: 0;
+        }
     </style>
 {% endblock css %}
 
 {% block content %}
+    <header style="background-image: url({% static 'img/nutrition.jpg' %})">
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">
+                    GUÍAS DE NUTRICIÓN
+                </h1>
+                <hr>
+            </div>
+        </div>
+    </header>
 	<div class="container">
 		<h1 class="text-center">{{ title|upper }}</h1>
         <h3 class="text-center">{{ total_calories }} kcal</h3>
@@ -25,16 +38,15 @@
 		{% for type, food, nf in diet %}
 			<h2>{{ type }}</h2><hr class="hr-title">
 			<ul>
-                <li><b class="lead">{{ food }}</b>
+                <li><b class="lead">{{ food }} <a href="{% url 'nutrition:update_food' nf.food_table nf.pk %}" class="btn">Cambiar</a></b>
                     <ul>
                         <li>Cantidad sugerida: {{ food.cantidadsugerida }} {{ food.unidad }}</li>
                         <li>Calorías: {{ food.energiakcal }}</li>
-                        <li><a href="{% url 'nutrition:update_food' nf.food_table nf.pk %}" class="btn">Editar</a></li>
                     </ul>
                 </li>
             </ul>
 			<br>
 		{% endfor %}
-        <a href="{% url 'nutrition:list' %}" class="btn btn-primary btn-lg">Volver</a>
+        <div class="text-center"><a href="{% url 'nutrition:list' %}" class="btn btn-primary btn-lg">Volver</a></div>
 	</div>
 {% endblock %}
