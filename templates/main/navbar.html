@@ -25,7 +25,10 @@
                             <a class="page-scroll" href="{% url 'students:detail' request.user.student.pk %}">DATOS PERSONALES</a>
                         </li>
                         <li {{ weather }}>
-                            <a class="page-scroll" href="{% url 'weather' %}">CALIDAD DEL AIRE</a>
+                            <a class="page-scroll" href="{% url 'weather' %}">CLIMA</a>
+                        </li>
+                        <li {{ news }}>
+                            <a class="page-scroll" href="{% url 'news' %}">NOTICIAS</a>
                         </li>
                     {% endif %}
                     <li>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Tips{% endblock %}
+
+{% block content %}
+    <header style="background-image: url({% static 'img/noticiasytips.jpg' %}); height: 75vh;">
+        <div class="header-content">
+            <div class="header-content-inner">
+            </div>  
+        </div>
+    </header>
+    <br><br>
+    <div class="container">
+        <div class="row">
+             <div class="col-lg-8 col-lg-offset-2">
+                <h2 class="card-text" align="left"><FONT face="Century Gothic"><b>1.- Si sientes que tienes ganas de comer, pero no estás seguro si realmente es hambre, pregúntate si te gustaría comer una manzana. Si la respuesta es "no'', probablemente estás más aburrido que hambriento.</b></FONT></h2>
+                <img src="{% static 'img\Tips\TipsAlimenta\manzana.jpg' %}" style="max-width:30%;width:30%;" class="rounded float-left">
+                <hr class="primary">
+            </div>
+             <div class="col-lg-8 col-lg-offset-2">
+                <h2 class="card-text" align="left"><FONT face="Century Gothic"><b>2.- Si te sientes ansioso o estresado, come un melón. Los melones ayudan a aliviar la ansiedad y el estrés, mientras le dan un impulso a tu metabolismo.</b></FONT></h2>
+                <img src="{% static 'img\Tips\TipsAlimenta\melon.jpg' %}" style="max-width:30%;width:30%;" class="rounded float-left">
+                <hr class="primary">
+            </div>
+             <div class="col-lg-8 col-lg-offset-2">
+                <h2 class="card-text" align="left"><FONT face="Century Gothic"><b>3.-  Saltarte tus comidas sólo provocará que ganes más peso. Tu cuerpo piensa que está pasando por una hambruna, lo que hace que funcione en modo ahorro de energía, lo que hará que quemar calorías sea mucho más difícil.</b></FONT></h2>
+                <img src="{% static 'img\Tips\TipsAlimenta\comidas.png' %}" style="max-width:30%;width:30%;" class="rounded float-left">
+                <hr class="primary">
+            </div>
+        </div>
+    </div>
+{% endblock %}

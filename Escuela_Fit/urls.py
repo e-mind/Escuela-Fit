@@ -9,6 +9,9 @@ urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^profile/$', profile, name='profile'),
     url(r'^weather/$', weather, name='weather'),
+    url(r'^news/$', TemplateView.as_view(template_name="main/notips.html"), name='news'),
+    url(r'^tips/$', TemplateView.as_view(template_name="main/tipsA.html"), name='tips'),
+    url(r'^es_sano_hacer_una_sola_comida_al_dia/$', TemplateView.as_view(template_name="main/es_sano_hacer_una_sola_comida_al_dia.html"), name='new1'),
 
     # APPS
     url(r'^admin/', admin.site.urls),

@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}Noticias{% endblock %}
+
+{% block content %}
+    <header style="background-image: url({% static 'img/noticiasytips.jpg' %}); height: 75vh;">
+        <div class="header-content">
+            <div class="header-content-inner">
+            </div> 	
+        </div>
+    </header>
+
+    <section id="noticias">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h1 class="section-heading">  NOTICIAS </h1>
+                    <hr class="primary">
+                    <h4>¡Cada semana tenemos nuevo contenido no olvides revisarlo! </h4>
+                    <div class="container"></div>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+      <div class="container text-center">
+          <div class="row">
+            <div class="col-lg-4 text-center">
+                <h2 class="section-heading">¿Que tan sano es un sola comida al día?</h2>
+                    <a href="{% url 'new1' %}" class="portfolio-box">
+                        <img src="{% static 'img/Noticias/lahoradecomer.jpg' %}" class="img-responsive">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-name">
+                                    La dieta de una sola comida al día es un...
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <br>
+                <br>
+                </div>
+            <div class="col-lg-4 text-center">
+                <h2 class="section-heading">La dieta sin azúcar: todo lo que necesitas saber</h2>
+                    <a href="{% url 'new1' %}" class="portfolio-box">
+                        <img src="{% static 'img/Noticias/dieta_sin_azucar.jpg' %}" class="img-responsive">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-name">
+                                     Reducir la ingesta de azúcar es una buena idea para la mayoría de las personas...
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <br>
+                <br>
+                </div>
+            <div class="col-lg-4 text-center">
+                <h2 class="section-heading">Datos y curiosidades sobre el corazón</h2>
+                    <a href="{% url 'new1' %}" class="portfolio-box">
+                        <img src="{% static 'img/Noticias/datoscorazon.jpg' %}" class="img-responsive">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-name">
+                                    El corazón es el motor de nuestro cuerpo...
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <br>
+                <br>
+                </div>
+            <div class="col-lg-4 text-center">
+                <h2 class="section-heading">Los frutos secos fortalecen mi cerebro</h2>
+                    <a href="{% url 'new1' %}" class="portfolio-box">
+                        <img src="{% static 'img/Noticias/frutos_secos.jpg' %}" class="img-responsive">
+                        <div class="portfolio-box-caption">
+                            <div class="portfolio-box-caption-content">
+                                <div class="project-name">
+                                    Estudios anteriores ya habían demostrado que introducir más frutos secos en la dieta mediterránea puede...
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <br>
+                <br>
+                </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!--TIPS -->
+
+    <section id="tips">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h1 class="section-heading">  TIPS  </h1>
+                    <hr class="primary">
+                    <h4>Pss pss ...¡acá hay unos tips!</h4>
+                    <div class="container"></div>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+      <div class="container">
+          <div class="row">
+            <div class="jumbotron">
+              <h1 class="display-3"><FONT face="Century Gothic">ALIMENTACIÓN</FONT></h1>
+              <p class="lead"><FONT face="Trebuchet MS">Si sientes que tienes ganas de comer, pero no estás seguro si realmente es hambre...</FONT></p>
+              <hr class="my-4">
+              <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{% url 'tips' %}" role="button">Leer más tips</a>
+              </p>
+            </div>
+            <div class="jumbotron">
+              <h1 class="display-3"><FONT face="Century Gothic">EJERCICIO</FONT></h1>
+              <br>
+              <p><FONT face="Trebuchet MS">¿Quieres matar el frio?, entonces camina por...</FONT></p>
+              <hr class="my-4">
+              <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Leer más tips</a>
+              </p>
+            </div>
+
+            </div>
+        </div>
+    </section>
+
+    </div>
+</div>
+{% endblock %}
