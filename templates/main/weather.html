@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/main/bulma/bulma2.css' %}">
 
     <style>
-        @media (min-width: 768px) {
+        /*@media (min-width: 768px) {
           header .header-content {
             position: absolute;
             top: 50%;
@@ -16,107 +16,60 @@
             transform: translateY(-50%);
             padding: 0 50px;
           }
+        }*/
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        .header-title {
+            color: rgba(0,0,0,0.7);
+        }
+
+        .weather {
+            display: inline-block;
+            background-color: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 3rem;
+            text-align: center;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        .title-weather {
+            font-size: 1.5rem;
+            display: block;
+        }
+
+        .number {
+            font-size: 5rem;
+            display: inline-block;
+        }
+
+        .header-content {
+            overflow: auto;
         }
     </style>
 {% endblock css %}
 
 
 {% block content %}
-    <header style="background-image: url({% static 'img/weather/weather.jpg' %});">
+    <header style="background-image: url({% static 'img/weather/weather.jpg' %}); min-height: 100vh;">
         <div class="header-content">
             <div class="header-content-inner">
-                <h1>CLIMA</h1>
-            </div> 	
+                <h1 class="header-title">CLIMA</h1>
+                <hr>
+            </div> 
+            <br><br>
+            <div>
+                <div class="weather col-xs-6 col-xs-offset-3 col-sm-3"><span class="title-weather">Temperatura actual</span> <span class="number">{{ weather.temp }}</span> °C</div>
+                <div class="weather col-xs-6 col-xs-offset-3 col-sm-3 col-sm-offset-0"><span class="title-weather">Temperatura mínima</span> <span class="number">{{ weather.temp_min }}</span> °C</span></div>
+                <div class="weather col-xs-6 col-xs-offset-3 col-sm-3"><span class="title-weather">Temperatura máxima</span> <span class="number">{{ weather.temp_max }}</span> °C</span></div>
+                <div class="weather col-xs-6 col-xs-offset-3 col-sm-3 col-sm-offset-0"><span class="title-weather">Humedad</span> <span class="number">{{ weather.humidity }}</span> %</div>  
+                <div class="weather col-xs-6 col-xs-offset-3"><span class="title-weather">Contingencia: <br> {{ pollution }}</span></div>
+            </div>
         </div>
     </header>
-
-    <section>
-        <div class="container">
-            <p>Contingencia: {{ pollution }}</p>
-            <div><p>Temperatura actual</p> <p>{{ weather.temp }} °C</p></div>
-            <div><p>Temperatura mínima</p> <p>{{ weather.temp_min }} °C</p></div>
-            <div><p>Temperatura máxima</p> <p>{{ weather.temp_max }} °C</p></div>
-            <div><p>Humedad</p> <p>{{ weather.humidity }}%</p></div>
-
-            <!-- <div class="row">
-                <div class="card col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
-                    <div class="card-image">
-                        <figure class="image is-2by1">
-                        <img src="{% static 'img/weather/doctor.jpg' %}" alt="Doctor">
-                        </figure>
-                    </div>
-                    <div class="media">
-                        <div class="media-content">
-                            <p class="title is-4">Precontingencia<br> (>160 puntos de ozono)</p>
-                            <p class="subtitle is-6">Ten en cuenta las siguientes recomendaciones:</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <ul>
-                                <li>Utiliza medios de transporte alternativos al automóvil como bicicleta.</li>
-                                <li>Evita actividades prolongadas al aire libre.</li>
-                                <li>En caso de alguna complicación de salud, acude a la atención médica.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <br> <br>
-            <br>
-            <div class="row">
-                <div class="card col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
-                    <div class="card-image">
-                        <figure class="image is-2by1">
-                            <img src="{% static 'img/weather/buildings.jpg' %}" alt="edificios">
-                        </figure>
-                    </div>
-                    <div class="media">
-                        <div class="media-content">
-                            <p class="title is-4">Contingencia Fase 1<br> (>190 puntos de ozono)</p>
-                            <p class="subtitle is-6">Ten en cuenta las siguientes recomendaciones:</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <ul>
-                                <li>Evita salir de casa, mantén ventanas y puertas cerradas.</li>
-                                <li>Evita las actividades deportivas o recreativas en el extereor.</li>
-                                <li>En caso de alguna complicación de salud, acude a la atención médica.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <br> <br>
-            <br>
-            <div class="row">
-                <div class="card col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
-                    <div class="card-image">
-                        <figure class="image is-2by1">
-                        <img src="{% static 'img/weather/danger.jpg' %}" alt="peligro">
-                        </figure>
-                    </div>
-                    <div class="media">
-                        <div class="media-content">
-                            <p class="title is-4">Contingencia Fase 2<br> (>240 puntos de ozono)</p>
-                            <p class="subtitle is-6">Ten en cuenta las siguientes recomendaciones:</p>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="content">
-                            <ul>
-                                <li>La calidad del aire es extremadamente mala por lo que se suspenden actividades fuera del hogar.</li>
-                                <li>En caso de alguna complicación de salud, acude a la atención médica.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <br> <br>
-            <br> -->
-    </section>
 {% endblock content %}
