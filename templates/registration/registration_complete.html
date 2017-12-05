@@ -1,8 +1,15 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
-
-{% block title %}Registro{% endblock title %}
+{% extends "base.html" %}
 
 {% block content %}
-    <p>Para activar tu cuenta da click al enlace que envíamos a tu correo electrónico.</p>
-{% endblock content %}
+  <header style="min-height: 100vh;">
+      <div class="header-content">
+          <div class="header-content-inner">
+              <h1 id="homeHeading">Registro</h1>
+              <hr>
+          </div>
+          <div class="container">
+            <p class="lead"><b>Para activar tu cuenta da click al enlace que enviamos a tu correo electrónico.</b></p>
+        </div>
+      </div>
+  </header>
+{% endblock %}
