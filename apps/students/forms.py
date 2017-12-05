@@ -6,20 +6,12 @@ from .models import Student
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = ['student_number', 'career', 'semester', 'name', 'first_surname', 'second_surname', 'age', 'birthday', 'telephone', 'email', 'card_code']
+        fields = ['student_number', 'career', 'semester', 'gender', 'name', 'first_surname', 'second_surname', 'age', 'birthday', 'telephone', 'email', 'card_code']
 
         widgets = {
-            'student_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'career': forms.Select(attrs={'class': 'form-control'}),
-            'semester': forms.Select(attrs={'class': 'form-control'}),
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'first_surname': forms.TextInput(attrs={'class': 'form-control'}),
-            'second_surname': forms.TextInput(attrs={'class': 'form-control'}),
-            'age': forms.NumberInput(attrs={'class': 'form-control', 'min': '15', 'max': '70'}),
-            'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}, format='%Y-%m-%d'),
-            'telephone': forms.TextInput(attrs={'type': 'tel', 'class': 'form-control', 'placeholder': 'Ej. 5512345678'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'card_code': forms.TextInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'min': '15', 'max': '70'}),
+            'birthday': forms.DateInput(attrs={'type': 'date'},  format='%Y-%m-%d'),
+            'telephone': forms.TextInput(attrs={'type': 'tel', 'placeholder': 'Ej. 5512345678'}),
         }
 
     def clean_student_number(self):
