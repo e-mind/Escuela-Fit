@@ -4,9 +4,9 @@ import pymysql
 pymysql.install_as_MySQLdb()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = 'zlwk@=cjljkfo4sjz&j%8$ujpq=lr#e*dk26_u+c##@6$rs$ap'
-DEBUG = False
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = os.getenv('SECRET_KEY', '')
+DEBUG = bool(os.getenv('DEBUG', ''))
+ALLOWED_HOSTS = ['127.0.0.1', os.getenv('ALLOWED_HOSTS', '')]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
