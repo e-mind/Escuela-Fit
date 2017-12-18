@@ -68,26 +68,16 @@ def weather(request):
     param = 'CO'
     range = 4
     station = 144
-    contador = 0
 
-    while True:
-        try:
-            if contador <= 1:
-                payload = {'estacion': station, 'Fecha': date, 'parametro': param, 'rango': range}
-                response_sinaica = requests.get(url_sinaica, params=payload)
-                response_sinaica = json.loads(response_sinaica.text).pop()
-            else:
-                raise StopIteration
-        except StopIteration:
-            pollution = 'Por el momento no pudimos obtener estos datos.'
-            break
-        except:
-            date = datetime.date.today() - datetime.timedelta(days=1)
-            date = date.isoformat()
-            contador += 1
-        else:
-            pollution = 'No realizar actividad física' if float(response_sinaica['valor']) > 1\
-                                                else 'Clima apto para la actividad física'
+    try:
+        payload = {'estacion': station, 'Fecha': date, 'parametro': param, 'rango': range}
+        response_sinaica = requests.get(url_sinaica, params=payload)
+        response_sinaica = json.loads(response_sinaica.text).pop()
+    except:
+        pollution = 'Por el momento no pudimos obtener estos datos.'
+    else:
+        pollution = 'No realizar actividad física' if float(response_sinaica['valor']) > 1\
+                                                    else 'Clima apto para la actividad física'
 
     #API OPENWEATHER
     url_weather = 'http://api.openweathermap.org/data/2.5/weather'
